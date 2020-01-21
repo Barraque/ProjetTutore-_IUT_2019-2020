@@ -8,11 +8,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 
 @Configuration
 @EnableWebSecurity
-@ConditionalOnProperty(
-    value = "keycloak.enabled",
-    havingValue = "false",
-    matchIfMissing = true
-)
 class BasicSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
