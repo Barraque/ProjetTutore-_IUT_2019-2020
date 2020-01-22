@@ -8,11 +8,11 @@
         <version>2.2.1.RELEASE</version>
     </parent>
     <groupId>fr.iut.projet</groupId>
-    <artifactId>projet-tutore-archetype</artifactId>
+    <artifactId>approfox-dev</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
-    <name>projet-tutore-archetype</name>
-    <description>Archétype du projet tutoré</description>
+    <name>Approfox DEV</name>
+    <description>DEV API for Approfox web application</description>
 
     <properties>
         <java.version>11</java.version>
