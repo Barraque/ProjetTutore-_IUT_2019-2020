@@ -1,7 +1,0 @@
-{
-  "realm": "approfox-dev",
-  "auth-server-url": "http://90.79.79.31:8082/auth/",
-  "ssl-required": "none",
-  "resource": "approfox-dev-login",
-  "public-client": true
-}
