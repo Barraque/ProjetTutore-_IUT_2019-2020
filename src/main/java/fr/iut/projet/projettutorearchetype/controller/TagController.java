@@ -1,11 +1,11 @@
 package fr.iut.projet.projettutorearchetype.controller;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import fr.iut.projet.projettutorearchetype.models.Tag;
 import fr.iut.projet.projettutorearchetype.services.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.UUID;
 
 @RestController
 public class TagController {
@@ -25,7 +25,7 @@ public class TagController {
 
     @GetMapping("tag")
     public Tag getTag(
-            @RequestParam(name = "id") Integer id
+            @RequestParam(name = "id") UUID id
     )
     {
         return tagService.getTag(id);
