@@ -5,6 +5,7 @@ import fr.iut.projet.projettutorearchetype.services.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -22,6 +23,10 @@ public class TagController {
         return tagService.addTag(tag);
     }
 
+    @GetMapping("tags")
+    public List<Tag> getAllTag() {
+        return tagService.getAllTags();
+    }
 
     @GetMapping("tag")
     public Tag getTag(
