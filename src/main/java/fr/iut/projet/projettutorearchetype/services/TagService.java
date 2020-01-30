@@ -1,7 +1,7 @@
 package fr.iut.projet.projettutorearchetype.services;
 
 import fr.iut.projet.projettutorearchetype.models.Tag;
-import fr.iut.projet.projettutorearchetype.repositories.ITagRepository;
+import fr.iut.projet.projettutorearchetype.repositories.TagRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +13,7 @@ import java.util.UUID;
 public class TagService {
 
     @Autowired
-    ITagRepository tagRepository;
+    TagRepository tagRepository;
 
     public Tag addTag(final Tag tag) {
         return tagRepository.save(tag);

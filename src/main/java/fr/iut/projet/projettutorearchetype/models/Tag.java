@@ -9,25 +9,18 @@ import javax.persistence.*;
 import java.util.UUID;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 @Table
 @Entity
 public class Tag {
 
     @Id
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(
-            name = "UUID",
-            strategy = "org.hibernate.id.UUIDGenerator"
-    )
-    @Column(name = "id", updatable = false, nullable = false)
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "tagId", updatable = false, nullable = false)
+    private int tagId;
 
-    @Column
+    @Column(name="departmentId",nullable = false)
+    private int departmentId;
+
+    @Column(name="name", nullable = false)
     private String name;
-
-    public Tag(final String name) {
-        this.name = name;
-    }
 }
