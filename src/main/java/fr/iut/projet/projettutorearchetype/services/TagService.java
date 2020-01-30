@@ -19,7 +19,7 @@ public class TagService {
         return tagRepository.save(tag);
     }
 
-    public Tag getTag(final UUID tagId) {
+    public Tag getTag(final int tagId) {
         Optional<Tag> tag = tagRepository.findById(tagId);
 
         return tag.get();
