@@ -18,25 +18,25 @@ public class User {
     @Column(name="userId",updatable = false,nullable = false)
     private int userId;
 
-    @Column(name = "login",nullable = false);
+    @Column(name = "login",nullable = false)
     private String login;
 
-    @Column(name = "password",nullable = false);
+    @Column(name = "password",nullable = false)
     private String password;
 
-    @Column(name = "name",length = 100,nullable = false);
+    @Column(name = "name",length = 100,nullable = false)
     private String name;
 
-    @Column(name = "surname",length = 100,nullable = false);
+    @Column(name = "surname",length = 100,nullable = false)
     private String surname;
 
-    @Column(name = "mail",nullable = false);
+    @Column(name = "mail",nullable = false)
     private String mail;
 
-    @Column(name = "roleId",nullable = false);
+    @Column(name = "roleId",nullable = false)
     private char roleId;
 
-    @Column(name = "firstConnexion",columnDefinition = "TINYINT(1) default 0",nullable = false);
+    @Column(name = "firstConnexion",columnDefinition = "TINYINT(1) default 0",nullable = false)
     private boolean firstConnexion;
 
     @Column(name = "departmentNumber",nullable = false)
