@@ -1,12 +1,8 @@
 package fr.iut.projet.projettutorearchetype.models;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.util.UUID;
 
 @Data
 @Table
@@ -15,7 +11,7 @@ public class User {
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    @Column(name="userId",updatable = false,nullable = false)
+    @Column(name="user_id",updatable = false,nullable = false)
     private int userId;
 
     @Column(name = "login",nullable = false)
@@ -33,13 +29,13 @@ public class User {
     @Column(name = "mail",nullable = false)
     private String mail;
 
-    @Column(name = "roleId",nullable = false)
+    @Column(name = "role_id",nullable = false)
     private char roleId;
 
-    @Column(name = "firstConnexion",columnDefinition = "TINYINT(1) default 0",nullable = false)
+    @Column(name = "first_connexion",columnDefinition = "TINYINT(1) default 0",nullable = false)
     private boolean firstConnexion;
 
-    @Column(name = "departmentNumber",nullable = false)
+    @Column(name = "department_number",nullable = false)
     private int departmentNumber;// if -1 = admin
 
 }
