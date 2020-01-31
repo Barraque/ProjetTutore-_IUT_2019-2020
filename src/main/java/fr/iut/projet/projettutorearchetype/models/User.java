@@ -29,8 +29,9 @@ public class User {
     @Column(name = "mail",nullable = false)
     private String mail;
 
-    @Column(name = "role_id",nullable = false)
-    private char roleId;
+    @ManyToOne
+    @JoinColumn(name = "role_id",nullable = false)
+    private Role role;
 
     @Column(name = "first_connexion",columnDefinition = "TINYINT(1) default 0",nullable = false)
     private boolean firstConnexion;
