@@ -1,12 +1,8 @@
 package fr.iut.projet.projettutorearchetype.models;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.util.UUID;
 
 @Data
 @Table
@@ -15,10 +11,10 @@ public class Tag {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "tagId", updatable = false, nullable = false)
+    @Column(name = "tag_id", updatable = false, nullable = false)
     private int tagId;
 
-    @Column(name="departmentId",nullable = false)
+    @Column(name="department_id",nullable = false)
     private int departmentId;
 
     @Column(name="name", nullable = false)

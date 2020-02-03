@@ -11,7 +11,7 @@ public class Departments {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="departmentId",nullable = false,updatable = false)
+    @Column(name="department_id",nullable = false,updatable = false)
     private int departmentId;
 
     @Column(name="name",length = 100,nullable = false)
