@@ -31,12 +31,13 @@ public class User {
 
     @ManyToOne
     @JoinColumn(name = "role_id",nullable = false)
-    private Role role;
+    private Role role;//if -1 = admin
 
     @Column(name = "first_connexion",columnDefinition = "TINYINT(1) default 0",nullable = false)
     private boolean firstConnexion;
 
-    @Column(name = "department_number",nullable = false)
-    private int departmentNumber;// if -1 = admin
+    @ManyToOne
+    @JoinColumn(name = "department_number",nullable = false)
+    private Department departmentNumber;// if -1 = admin
 
 }
