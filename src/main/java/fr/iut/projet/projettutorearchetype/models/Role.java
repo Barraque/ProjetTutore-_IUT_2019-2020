@@ -1,12 +1,15 @@
 package fr.iut.projet.projettutorearchetype.models;
 
 import lombok.Data;
+import lombok.Getter;
 
 import javax.persistence.*;
 
 @Data
 @Table
 @Entity
+@Getter
+
 public class Role {
 
     @Id
