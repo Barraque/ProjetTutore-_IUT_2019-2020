@@ -1,5 +1,6 @@
 package fr.iut.projet.projettutorearchetype.configurations;
 
+import fr.iut.projet.projettutorearchetype.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,14 +17,18 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableWebSecurity
 class BasicSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
+    @Autowired
+    private UserService userService;
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.cors()
             .and()
-                .authenticationProvider(getProvider())
             .csrf().disable()
             .authorizeRequests()
-            .anyRequest().permitAll();
+                .antMatchers("/users").authenticated()
+            .anyRequest().permitAll()
+            .and().formLogin().permitAll();
 
     }
 
@@ -32,20 +37,18 @@ class BasicSecurityConfiguration extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
-    @Autowired
-    private UserDetailsService userDetailsService;
-
-    @Bean
+    /*@Bean
     public DaoAuthenticationProvider authProvider() {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-        authProvider.setUserDetailsService(userDetailsService);
+        authProvider.setUserDetailsService(userService);
         authProvider.setPasswordEncoder(passwordEncoder());
         return authProvider;
-    }
+    }*/
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.authenticationProvider(authProvider());
+        auth.userDetailsService(userService)
+        .passwordEncoder(passwordEncoder());
     }
 
 }

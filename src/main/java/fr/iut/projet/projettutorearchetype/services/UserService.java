@@ -3,6 +3,9 @@ package fr.iut.projet.projettutorearchetype.services;
 import fr.iut.projet.projettutorearchetype.models.User;
 import fr.iut.projet.projettutorearchetype.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -10,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class UserService {
+public class UserService implements UserDetailsService {
 
     @Autowired
     UserRepository userRepository;
@@ -33,5 +36,14 @@ public class UserService {
 
     public List<User> getAllUsers() {
         return userRepository.findAll();
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
+        Optional<User> optionalUser = userRepository.findByLogin(s);
+        optionalUser
+                .orElseThrow(() -> new UsernameNotFoundException("Login not found"));
+        return optionalUser
+                .map(user -> new User(user)).get();
     }
 }

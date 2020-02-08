@@ -61,6 +61,16 @@ public class User implements UserDetails {
     }*/
     public User(){};
 
+    public User(User user){
+        this.login = user.login;
+        this.password = user.password;
+        this.name = user.name;
+        this.surname = user.surname;
+        this.mail = user.mail;
+        this.role = user.role;
+        this.departmentNumber = user.departmentNumber;
+    }
+
     public void setFirstConnexion(int firstConnexion) {
         this.firstConnexion = firstConnexion;
     }
@@ -81,26 +91,26 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return null;
+        return this.login;
     }
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return true;
     }
 }
