@@ -46,7 +46,7 @@ public class User implements UserDetails {
     private int firstConnexion;
 
     @ManyToOne
-    @JoinColumn(name = "department_number")
+    @JoinColumn(name = "department_number",nullable = false)
     private Department departmentNumber;// if -1 = admin
 
 
