@@ -6,11 +6,14 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Type;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.Set;
+import java.util.stream.*;
 
 @Data
 @Table
@@ -37,9 +40,10 @@ public class User implements UserDetails {
     @Column(name = "mail",nullable = false)
     private String mail;
 
-    @ManyToOne
-    @JoinColumn(name = "role_id",nullable = false)
-    private Role role;//if -1 = admin
+    @OneToMany
+    @JoinTable
+    //@JoinTable(name = "role_id",joinColumns = @JoinColumn(name=) nullable = false)
+    private Set<Role> roles;//if -1 = admin
 
     @Column(name = "first_connexion",columnDefinition = "TINYINT(1) default 1",nullable = false)
     //@Type(type = "org.hibernate.type.NumericBooleanType")
@@ -47,7 +51,7 @@ public class User implements UserDetails {
 
     @ManyToOne
     @JoinColumn(name = "department_number",nullable = false)
-    private Department departmentNumber;// if -1 = admin
+    private Department department_number;// if -1 = admin
 
 
     /*public User(String login,String password,String name,String surname,String mail,Role roleid,Department departmentid){
@@ -67,8 +71,8 @@ public class User implements UserDetails {
         this.name = user.name;
         this.surname = user.surname;
         this.mail = user.mail;
-        this.role = user.role;
-        this.departmentNumber = user.departmentNumber;
+        this.roles = user.roles;
+        this.department_number= user.department_number;
     }
 
     public void setFirstConnexion(int firstConnexion) {
@@ -81,7 +85,10 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return getRoles()
+                .stream()
+                .map(role -> new SimpleGrantedAuthority(role.getName()))
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -104,6 +111,10 @@ public class User implements UserDetails {
         return true;
     }
 
+    public int getFirstConnexion() {
+        return firstConnexion;
+    }
+
     @Override
     public boolean isCredentialsNonExpired() {
         return true;
@@ -112,5 +123,33 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public String getMail() {
+        return mail;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public Department getDepartmentSet() {
+        return department_number;
     }
 }

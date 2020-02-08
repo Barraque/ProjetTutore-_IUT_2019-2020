@@ -1,10 +1,9 @@
 package fr.iut.projet.projettutorearchetype.controller;
 
-import fr.iut.projet.projettutorearchetype.models.Role;
-import fr.iut.projet.projettutorearchetype.models.Tag;
 import fr.iut.projet.projettutorearchetype.models.User;
 import fr.iut.projet.projettutorearchetype.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -40,5 +39,13 @@ public class UserController {
         return userService.getUser(id);
     }
 
+    @PreAuthorize("hasAnyRole('Manager')")
+    @DeleteMapping("user")
+    public void deleteUser(
+            @RequestParam(name = "id") int id
+    ){
+        userService.deleteUser(id);
+        return;
+    }
 
 }

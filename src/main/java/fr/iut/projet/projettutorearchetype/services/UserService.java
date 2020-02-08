@@ -46,4 +46,8 @@ public class UserService implements UserDetailsService {
         return optionalUser
                 .map(user -> new User(user)).get();
     }
+
+    public void deleteUser(int id) {
+        userRepository.deleteById(id);
+    }
 }
