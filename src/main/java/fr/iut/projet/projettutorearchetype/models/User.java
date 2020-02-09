@@ -1,19 +1,19 @@
 package fr.iut.projet.projettutorearchetype.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.util.EnumResolver;
 import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Type;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.hibernate.annotations.Cascade;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.util.StringUtils;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Set;
-import java.util.stream.*;
+import java.util.stream.Collectors;
 
 @Data
 @Table
@@ -25,13 +25,14 @@ public class User implements UserDetails {
     @Column(name="user_id",updatable = false,nullable = false)
     private int userId;
 
-    @Column(name = "login",nullable = false)
+    @Column(name = "login",nullable = false,unique = true)
     private String login;
 
+    @JsonIgnore
     @Column(name = "password",nullable = false)
     private String password;
 
-    @Column(name = "name",length = 100,nullable = false)
+    @Column(name = "name",length = 100,nullable = true)
     private String name;
 
     @Column(name = "surname",length = 100,nullable = false)
@@ -40,29 +41,16 @@ public class User implements UserDetails {
     @Column(name = "mail",nullable = false)
     private String mail;
 
-    @OneToMany
-    @JoinTable
-    //@JoinTable(name = "role_id",joinColumns = @JoinColumn(name=) nullable = false)
-    private Set<Role> roles;//if -1 = admin
+    @Column(name = "role", nullable = false)
+    private RolesEnum role;//if -1 = admin*/
 
     @Column(name = "first_connexion",columnDefinition = "TINYINT(1) default 1",nullable = false)
-    //@Type(type = "org.hibernate.type.NumericBooleanType")
     private int firstConnexion;
 
     @ManyToOne
     @JoinColumn(name = "department_number",nullable = false)
     private Department department_number;// if -1 = admin
 
-
-    /*public User(String login,String password,String name,String surname,String mail,Role roleid,Department departmentid){
-        this.login = login;
-        this.password = password;
-        this.name = name;
-        this.surname = "looooooooooooooooo";
-        this.mail = mail;
-        this.role = roleid;
-        this.departmentNumber = departmentid;
-    }*/
     public User(){};
 
     public User(User user){
@@ -71,7 +59,7 @@ public class User implements UserDetails {
         this.name = user.name;
         this.surname = user.surname;
         this.mail = user.mail;
-        this.roles = user.roles;
+        this.role = user.role;
         this.department_number= user.department_number;
     }
 
@@ -83,12 +71,12 @@ public class User implements UserDetails {
         this.password = password;
     }
 
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return getRoles()
-                .stream()
-                .map(role -> new SimpleGrantedAuthority(role.getName()))
-                .collect(Collectors.toList());
+        String roles = StringUtils.collectionToCommaDelimitedString(getRoles().stream()
+                .map(Enum::name).collect(Collectors.toList()));
+        return AuthorityUtils.commaSeparatedStringToAuthorityList(roles);
     }
 
     @Override
@@ -145,8 +133,10 @@ public class User implements UserDetails {
         return mail;
     }
 
-    public Set<Role> getRoles() {
-        return roles;
+    public Collection<RolesEnum> getRoles() {
+        ArrayList<RolesEnum> role = new ArrayList<RolesEnum>();
+        role.add(this.role);
+        return role;
     }
 
     public Department getDepartmentSet() {

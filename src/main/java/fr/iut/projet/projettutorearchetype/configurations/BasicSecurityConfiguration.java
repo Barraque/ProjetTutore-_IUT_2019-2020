@@ -24,8 +24,8 @@ class BasicSecurityConfiguration extends WebSecurityConfigurerAdapter {
             .and()
             .csrf().disable()
             .authorizeRequests()
-            .antMatchers("/users").authenticated()
-            .anyRequest().permitAll()
+                .antMatchers("/tag").hasAnyAuthority("MANAGER")
+            .anyRequest().authenticated()
             .and().formLogin().permitAll();
 
     }

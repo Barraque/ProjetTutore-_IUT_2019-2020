@@ -14,10 +14,6 @@ public class Tag {
     @Column(name = "tag_id", updatable = false, nullable = false)
     private int tagId;
 
-    /*
-    @Column(name="department_id",nullable = false)
-    private int departmentId;
-    */
 
     @Column(name="name", nullable = false)
     private String name;
