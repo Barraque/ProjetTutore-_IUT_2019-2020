@@ -12,7 +12,7 @@ import java.sql.Date;
 public class EntrepriseOffer {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name="entreprise_offer_id",updatable = false,nullable = false)
     private int entrepriseOfferId;
 
