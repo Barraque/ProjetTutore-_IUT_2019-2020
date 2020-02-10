@@ -31,7 +31,6 @@ public class UserService implements UserDetailsService {
         return user.get();
     }
     public void createPassword(User user){
-        System.out.println(user.getLogin());
         user.setPassword(passwordEncoder.encode(user.getPassword()));
     }
 
