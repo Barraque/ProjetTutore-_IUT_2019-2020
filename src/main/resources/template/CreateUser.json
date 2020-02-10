@@ -1,14 +1,11 @@
 {
-  "login":"marieLou",
-  "password":"marielou",
+  "login":"moi",
+  "password":"moi",
   "name":"marielou",
   "surname":"lotre",
   "mail":"loutre",
-  "role":{
-    "roleId":1,
-    "name":"Student"
-  },
-  "departement":{
+  "role":0,
+  "department_number":{
     "name":"Computer science",
     "departmentId":1
   }
