@@ -50,5 +50,14 @@ public class UserController {
         return userService.getUser(id);
     }
 
+    /*@PreAuthorize("hasAnyAuthority('MANAGER')")
+    @DeleteMapping("user")
+    public void deleteUser(
+            @RequestParam(name = "id") int id
+    ){
+        userService.deleteUser(id);
+        return;
+    }*/
+    //Dont know how to test
 
 }
