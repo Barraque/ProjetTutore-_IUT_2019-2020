@@ -5,9 +5,11 @@ import fr.iut.projet.projettutorearchetype.models.RolesEnum;
 import fr.iut.projet.projettutorearchetype.models.User;
 import fr.iut.projet.projettutorearchetype.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -19,17 +21,14 @@ public class UserController {
 
     @PostMapping("user")
     public User addUser(
-            @RequestBody User user
+            @RequestBody User user,
+            @AuthenticationPrincipal User requestUser
     ){
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if(!(((User) principal).getRoles().toArray()[0].equals(RolesEnum.MANAGER))){
+        if(!(requestUser.getRoles().toArray()[0].equals(RolesEnum.MANAGER))){
             throw new ForbiddenException();
         }
         user.setFirstConnexion(1);
         userService.createPassword(user);
-        if (user != null){
-            System.out.println(user.toString());
-        }
         return userService.addUser(user);
     }
 
@@ -41,11 +40,11 @@ public class UserController {
 
     @GetMapping("user")
     public User getuser(
-            @RequestParam(name = "id") int id
+            @RequestParam(name = "id") int id,
+            @AuthenticationPrincipal User requestUser
             ){
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User theUser = userService.getUser(id);
-        if(!theUser.getLogin().equals(((User)principal).getLogin()) && !(((User) principal).getRoles().toArray()[0].equals(RolesEnum.MANAGER))){
+        if(!theUser.getLogin().equals(requestUser.getLogin()) && !(requestUser.getRoles().toArray()[0].equals(RolesEnum.MANAGER))){
             throw new ForbiddenException();
         }
         return userService.getUser(id);
