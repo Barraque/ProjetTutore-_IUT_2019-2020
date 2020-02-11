@@ -5,6 +5,7 @@ import fr.iut.projet.projettutorearchetype.models.RolesEnum;
 import fr.iut.projet.projettutorearchetype.models.User;
 import fr.iut.projet.projettutorearchetype.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
@@ -32,6 +33,29 @@ public class UserController {
         return userService.addUser(user);
     }
 
+    @PostMapping("manyuser")
+    @ResponseStatus(HttpStatus.OK)
+    public String addManyUser(
+            @RequestBody List<User> listOfuser,
+            @AuthenticationPrincipal User requestUser
+    ){
+        if(!(requestUser.getRoles().toArray()[0].equals(RolesEnum.MANAGER))){
+            throw new ForbiddenException();
+        }
+        int i = 0;
+        for(User aUserInTheList : listOfuser){
+            aUserInTheList.setFirstConnexion(1);
+            userService.createPassword(aUserInTheList);
+            try {
+                userService.addUser(aUserInTheList);
+            }
+            catch (Exception exc){
+                i++;
+            }
+        }
+        return "Numbre of Error: "+ i;
+    }
+
 
     @GetMapping("users")
     public List<User> getAllUsers(){
@@ -50,5 +74,14 @@ public class UserController {
         return userService.getUser(id);
     }
 
+/*@PreAuthorize("hasAnyAuthority('MANAGER')")
+    @DeleteMapping("user")
+    public void deleteUser(
+            @RequestParam(name = "id") int id
+    ){
+        userService.deleteUser(id);
+        return;
+    }*/
+    //Dont know how to test
 
 }
