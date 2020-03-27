@@ -1,0 +1,12 @@
+{
+  "login":"moi",
+  "password":"moi",
+  "name":"marielou",
+  "surname":"lotre",
+  "mail":"loutre",
+  "role":0,
+  "department_number":{
+    "name":"Computer science",
+    "departmentId":1
+  }
+}
