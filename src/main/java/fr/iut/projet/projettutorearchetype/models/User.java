@@ -32,7 +32,7 @@ public class User implements UserDetails {
     @Column(name = "password",nullable = false)
     private String password;
 
-    @Column(name = "name",length = 100,nullable = true)
+    @Column(name = "firstname",length = 100,nullable = true)
     private String name;
 
     @Column(name = "surname",length = 100,nullable = false)
