@@ -6,10 +6,8 @@ import fr.iut.projet.projettutorearchetype.models.User;
 import fr.iut.projet.projettutorearchetype.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -24,7 +22,7 @@ public class UserController {
             @RequestBody User user,
             @AuthenticationPrincipal User requestUser
     ){
-        if(!(requestUser.getRoles().toArray()[0].equals(RolesEnum.MANAGER))){
+        if(!(requestUser.getRoles().toArray()[0].equals(RolesEnum.DEPARTMENT_MANAGER))){
             throw new ForbiddenException();
         }
         user.setFirstConnexion(1);
@@ -44,7 +42,7 @@ public class UserController {
             @AuthenticationPrincipal User requestUser
             ){
         User theUser = userService.getUser(id);
-        if(!theUser.getLogin().equals(requestUser.getLogin()) && !(requestUser.getRoles().toArray()[0].equals(RolesEnum.MANAGER))){
+        if(!theUser.getLogin().equals(requestUser.getLogin()) && !(requestUser.getRoles().toArray()[0].equals(RolesEnum.DEPARTMENT_MANAGER))){
             throw new ForbiddenException();
         }
         return userService.getUser(id);
