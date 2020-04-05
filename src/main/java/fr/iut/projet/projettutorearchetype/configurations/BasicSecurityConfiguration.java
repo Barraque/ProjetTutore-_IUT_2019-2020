@@ -31,13 +31,13 @@ class BasicSecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.cors()
             .and()
             .csrf().disable()
-                .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-                .authorizeRequests().antMatchers("/helloWorld").permitAll()
-                .antMatchers("/signin").permitAll()
-                .anyRequest().authenticated();
+            .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
+            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+            .authorizeRequests().antMatchers("/helloWorld").permitAll()
+            .antMatchers("/signin").permitAll()
+            .anyRequest().authenticated();
+            
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
-
     }
 
     @Bean
@@ -62,3 +62,4 @@ class BasicSecurityConfiguration extends WebSecurityConfigurerAdapter {
         return super.authenticationManagerBean();
     }
 }
+
