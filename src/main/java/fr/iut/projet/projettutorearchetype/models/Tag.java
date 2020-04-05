@@ -14,11 +14,11 @@ public class Tag {
     @Column(name = "tag_id", updatable = false, nullable = false)
     private int tagId;
 
-
     @Column(name="name", nullable = false)
     private String name;
 
     public String toString(){
         return this.name;
     }
+
 }

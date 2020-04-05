@@ -8,6 +8,7 @@ import javax.persistence.*;
 @Data
 @Table
 @Entity
+@Getter
 public class Department {
 
     @Id

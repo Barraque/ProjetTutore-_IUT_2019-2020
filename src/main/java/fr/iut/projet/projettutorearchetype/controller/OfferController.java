@@ -33,5 +33,4 @@ public class OfferController{
         return offerService.getOffer(id);
     }
 
-
 }

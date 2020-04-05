@@ -1,9 +1,7 @@
 package fr.iut.projet.projettutorearchetype.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.databind.util.EnumResolver;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
-import org.hibernate.annotations.Cascade;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -12,7 +10,7 @@ import org.springframework.util.StringUtils;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Set;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Data
@@ -28,14 +26,14 @@ public class User implements UserDetails {
     @Column(name = "login",nullable = false,unique = true)
     private String login;
 
-    @JsonIgnore
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Column(name = "password",nullable = false)
     private String password;
 
     @Column(name = "firstname",length = 100,nullable = true)
     private String name;
 
-    @Column(name = "surname",length = 100,nullable = false)
+    @Column(name = "lastname",length = 100,nullable = false)
     private String surname;
 
     @Column(name = "mail",nullable = false)
@@ -133,6 +131,9 @@ public class User implements UserDetails {
         return mail;
     }
 
+    public String password2;
+
+
     public Collection<RolesEnum> getRoles() {
         ArrayList<RolesEnum> role = new ArrayList<RolesEnum>();
         role.add(this.role);
@@ -141,5 +142,15 @@ public class User implements UserDetails {
 
     public Department getDepartmentSet() {
         return department_number;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+        User user = (User) o;
+        return Objects.equals(userId, user.userId);
     }
 }

@@ -26,4 +26,5 @@ public class DepartmentService {
     public List<Department> getAllDepartment(){
         return  departmentRepository.findAll();
     }
+
 }
