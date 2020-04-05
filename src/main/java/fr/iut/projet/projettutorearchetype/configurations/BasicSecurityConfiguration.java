@@ -35,7 +35,9 @@ class BasicSecurityConfiguration extends WebSecurityConfigurerAdapter {
             .and()
             .csrf().disable()
             .authorizeRequests()
-                .antMatchers("/tag").hasAnyAuthority("MANAGER")
+             .anyRequest().permitAll()
+            .and().httpBasic();
+              /*  .antMatchers("/tag").hasAnyAuthority("MANAGER")
                 .antMatchers("/user", "/users").permitAll()
                 .anyRequest().authenticated()
             .and().formLogin().permitAll().successHandler(new AuthenticationSuccessHandler() {
@@ -43,7 +45,7 @@ class BasicSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
                     System.out.println(((User)authentication.getPrincipal()).getLogin());
                 }
-            });
+            });*/
     }
 
     @Bean
