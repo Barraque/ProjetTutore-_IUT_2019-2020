@@ -39,7 +39,7 @@ public class UserService implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
+    public User loadUserByUsername(String s) throws UsernameNotFoundException {
         Optional<User> optionalUser = userRepository.findByLogin(s);
         optionalUser
                 .orElseThrow(() -> new UsernameNotFoundException("Login not found"));
