@@ -33,10 +33,10 @@ public class User implements UserDetails {
     private String password;
 
     @Column(name = "firstname",length = 100,nullable = true)
-    private String name;
+    private String firstname;
 
-    @Column(name = "surname",length = 100,nullable = false)
-    private String surname;
+    @Column(name = "lastname",length = 100,nullable = false)
+    private String lastname;
 
     @Column(name = "mail",nullable = false)
     private String mail;
@@ -56,8 +56,8 @@ public class User implements UserDetails {
     public User(User user){
         this.login = user.login;
         this.password = user.password;
-        this.name = user.name;
-        this.surname = user.surname;
+        this.firstname = user.firstname;
+        this.lastname = user.lastname;
         this.mail = user.mail;
         this.role = user.role;
         this.department_number= user.department_number;
@@ -121,12 +121,12 @@ public class User implements UserDetails {
         return login;
     }
 
-    public String getName() {
-        return name;
+    public String getFirstname() {
+        return firstname;
     }
 
-    public String getSurname() {
-        return surname;
+    public String getLastname() {
+        return lastname;
     }
 
     public String getMail() {

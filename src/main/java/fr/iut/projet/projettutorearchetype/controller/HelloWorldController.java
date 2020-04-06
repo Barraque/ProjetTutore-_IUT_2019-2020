@@ -1,5 +1,6 @@
 package fr.iut.projet.projettutorearchetype.controller;
 
+import fr.iut.projet.projettutorearchetype.constants.Constants;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -7,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class HelloWorldController {
 
 
-    @GetMapping("helloWorld")
+    @GetMapping(Constants.apiConstant+"helloWorld")
     public String helloWorld (){return "Hello World !";}
 
 

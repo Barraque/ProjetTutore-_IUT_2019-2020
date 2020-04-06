@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.Getter;
 
 import javax.persistence.*;
+import java.sql.Blob;
 import java.sql.Date;
 
 @Data
@@ -21,11 +22,10 @@ public class Offer {
     @Column(name="title",length = 255,nullable = false)
     private String title;
 
-    @Column(name="descripton",columnDefinition = "TEXT",nullable = false)
-    private String description;
+    @Lob
+    @Column(name="offer_file",columnDefinition = "BLOB",nullable = false)
+    private Blob description;
 
-    @Column(name="creation_date",columnDefinition = "DATE",nullable = true,updatable = false)
-    @JsonFormat(pattern = "dd/MM/yyy")
-    private Date creationDate;
+
 
 }

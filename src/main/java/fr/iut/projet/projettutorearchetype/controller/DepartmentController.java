@@ -1,5 +1,6 @@
 package fr.iut.projet.projettutorearchetype.controller;
 
+import fr.iut.projet.projettutorearchetype.constants.Constants;
 import fr.iut.projet.projettutorearchetype.models.Department;
 import fr.iut.projet.projettutorearchetype.services.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,19 +14,19 @@ public class DepartmentController {
     @Autowired
     DepartmentService departmentService;
 
-    @PostMapping("department")
+    @PostMapping(Constants.apiConstant+"department")
     public Department addDepartment(
         @RequestBody Department department
         ){
         return this.departmentService.addDepartment(department);
     }
 
-    @GetMapping("departments")
+    @GetMapping(Constants.apiConstant+"departments")
     public List<Department> getAllDepartment(){
         return departmentService.getAllDepartment();
     }
 
-    @GetMapping("department")
+    @GetMapping(Constants.apiConstant+"department")
     public Department getDepartment(
             @RequestParam(name = "id") int departmentId
     ){

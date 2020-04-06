@@ -1,5 +1,6 @@
 package fr.iut.projet.projettutorearchetype.controller;
 
+import fr.iut.projet.projettutorearchetype.constants.Constants;
 import fr.iut.projet.projettutorearchetype.models.Tag;
 import fr.iut.projet.projettutorearchetype.services.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,7 @@ public class TagController {
     @Autowired
     TagService tagService;
 
-    @PostMapping("tag")
+    @PostMapping(Constants.apiConstant+"tag")
     public Tag addTag(
             @RequestBody Tag tag
     ){
@@ -25,12 +26,12 @@ public class TagController {
     }
 
 
-    @GetMapping("tags")
+    @GetMapping(Constants.apiConstant+"tags")
     public List<Tag> getAllTag(){
         return tagService.getAllTags();
     }
 
-    @GetMapping("tag")
+    @GetMapping(Constants.apiConstant+"tag")
     public Tag getTag(
             @RequestParam(name = "id") int id
     ){

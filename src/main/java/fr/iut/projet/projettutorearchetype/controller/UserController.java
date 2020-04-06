@@ -1,5 +1,6 @@
 package fr.iut.projet.projettutorearchetype.controller;
 
+import fr.iut.projet.projettutorearchetype.constants.Constants;
 import fr.iut.projet.projettutorearchetype.models.User;
 import fr.iut.projet.projettutorearchetype.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,7 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    @PostMapping("user")
+    @PostMapping(Constants.apiConstant+"user")
     public User addUser(
             @RequestBody User user
     ){
@@ -27,12 +28,12 @@ public class UserController {
     }
 
 
-    @GetMapping("users")
+    @GetMapping(Constants.apiConstant+"users")
     public List<User> getAllUsers(){
         return userService.getAllUsers();
     }
 
-    @GetMapping("user")
+    @GetMapping(Constants.apiConstant+"user")
     public User getuser(
             @RequestParam(name = "id") int id
     ){

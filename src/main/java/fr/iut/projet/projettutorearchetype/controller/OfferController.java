@@ -1,5 +1,6 @@
 package fr.iut.projet.projettutorearchetype.controller;
 
+import fr.iut.projet.projettutorearchetype.constants.Constants;
 import fr.iut.projet.projettutorearchetype.models.Offer;
 import fr.iut.projet.projettutorearchetype.services.OfferService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,7 @@ public class OfferController{
     @Autowired
     OfferService offerService;
 
-    @PostMapping("offer")
+    @PostMapping(Constants.apiConstant+"offer")
     public Offer addOffer(
             @RequestBody Offer offer
     ){
@@ -21,12 +22,12 @@ public class OfferController{
 
     }
 
-    @GetMapping("offers")
+    @GetMapping(Constants.apiConstant+"offers")
     public List<Offer> getAllOffers(){
         return offerService.getAllOffers();
     }
 
-    @GetMapping("offer")
+    @GetMapping(Constants.apiConstant+"offer")
     public Offer getOffer(
             @RequestParam(name="id") int id
     ){
