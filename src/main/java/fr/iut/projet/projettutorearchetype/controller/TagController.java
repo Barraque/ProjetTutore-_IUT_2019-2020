@@ -3,18 +3,20 @@ package fr.iut.projet.projettutorearchetype.controller;
 import fr.iut.projet.projettutorearchetype.models.Tag;
 import fr.iut.projet.projettutorearchetype.services.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*")
+@RequestMapping("/tag")
 public class TagController {
 
     @Autowired
     TagService tagService;
 
-    @PostMapping("tag")
+    @PostMapping("")
     public Tag addTag(
             @RequestBody Tag tag
     ){
@@ -24,13 +26,14 @@ public class TagController {
         return tagService.addTag(tag);
     }
 
-
-    @GetMapping("tags")
+    //@PreAuthorize("hasRole('ADMINISTRATOR')")
+    @GetMapping("all")
     public List<Tag> getAllTag(){
         return tagService.getAllTags();
     }
 
-    @GetMapping("tag")
+    @GetMapping("")
+    //@PreAuthorize("hasRole('ADMINISTRATOR')")
     public Tag getTag(
             @RequestParam(name = "id") int id
     ){

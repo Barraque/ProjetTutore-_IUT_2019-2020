@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.util.StringUtils;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Objects;
@@ -21,6 +22,7 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name="user_id",updatable = false,nullable = false)
+    @Min(value = 0, message = "Id must be over 0")
     private int userId;
 
     @Column(name = "login",nullable = false,unique = true)
@@ -49,6 +51,7 @@ public class User implements UserDetails {
     @JoinColumn(name = "department_number",nullable = false)
     private Department department_number;// if -1 = admin
 
+
     public User(){};
 
     public User(User user){
@@ -61,6 +64,15 @@ public class User implements UserDetails {
         this.department_number= user.department_number;
     }
 
+    public User(UserDAO userdao){
+        this.login = userdao.getLogin();
+        this.password = userdao.getPassword();
+        this.name = userdao.getName();
+        this.surname = userdao.getSurname();
+        this.mail = userdao.getMail();
+        this.role = userdao.getRole();
+        this.department_number= getDepartment_number();
+    }
     public void setFirstConnexion(int firstConnexion) {
         this.firstConnexion = firstConnexion;
     }
@@ -130,9 +142,6 @@ public class User implements UserDetails {
     public String getMail() {
         return mail;
     }
-
-    public String password2;
-
 
     public Collection<RolesEnum> getRoles() {
         ArrayList<RolesEnum> role = new ArrayList<RolesEnum>();
