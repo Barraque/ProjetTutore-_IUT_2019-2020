@@ -49,7 +49,7 @@ public class User implements UserDetails {
 
     @ManyToOne
     @JoinColumn(name = "department_number",nullable = false)
-    private Department department_number;// if -1 = admin
+    private Department departmentNumber;// if -1 = admin
 
 
     public User(){};
@@ -61,7 +61,7 @@ public class User implements UserDetails {
         this.surname = user.surname;
         this.mail = user.mail;
         this.role = user.role;
-        this.department_number= user.department_number;
+        this.departmentNumber = user.departmentNumber;
     }
 
     public User(UserDAO userdao){
@@ -71,7 +71,7 @@ public class User implements UserDetails {
         this.surname = userdao.getSurname();
         this.mail = userdao.getMail();
         this.role = userdao.getRole();
-        this.department_number= getDepartment_number();
+        this.departmentNumber= userdao.getDepartmentNumber();
     }
     public void setFirstConnexion(int firstConnexion) {
         this.firstConnexion = firstConnexion;
@@ -150,7 +150,7 @@ public class User implements UserDetails {
     }
 
     public Department getDepartmentSet() {
-        return department_number;
+        return departmentNumber;
     }
 
     @Override
