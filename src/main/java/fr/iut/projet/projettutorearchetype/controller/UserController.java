@@ -30,7 +30,7 @@ public class UserController {
             throw new ForbiddenException();
         }
 
-        user.setFirstConnexion(1);
+        user.setFirtConnection(1);
         userService.createPassword(user);
         return userService.addUser(user);
     }
@@ -72,7 +72,6 @@ public class UserController {
         }
         return userService.changeUser(id,userDAO);
     }
-
 
     /*@PreAuthorize("hasAnyAuthority('MANAGER')")
     @DeleteMapping("user")

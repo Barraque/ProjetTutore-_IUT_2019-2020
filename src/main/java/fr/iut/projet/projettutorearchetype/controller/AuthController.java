@@ -5,7 +5,6 @@ import fr.iut.projet.projettutorearchetype.models.User;
 import fr.iut.projet.projettutorearchetype.payload.request.LoginRequest;
 import fr.iut.projet.projettutorearchetype.payload.response.JwtResponse;
 import fr.iut.projet.projettutorearchetype.repositories.UserRepository;
-import fr.iut.projet.projettutorearchetype.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -37,9 +36,6 @@ public class AuthController {
     @Autowired
     JwtUtils jwtUtils;
 
-    @Autowired
-    UserService userService;
-
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 
@@ -50,11 +46,6 @@ public class AuthController {
         String jwt = jwtUtils.generateJwtToken(authentication);
 
         User user = (User) authentication.getPrincipal();
-        user =  userService.getUserByLogin(user.getLogin());
-        if (user.getFirstConnexion() == 1){
-
-        }
-
         List<String> roles = user.getAuthorities().stream()
                 .map(item -> item.getAuthority())
                 .collect(Collectors.toList());
@@ -65,5 +56,4 @@ public class AuthController {
                 user.getMail(),
                 roles));
     }
-
 }

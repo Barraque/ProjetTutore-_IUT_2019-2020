@@ -45,7 +45,7 @@ public class User implements UserDetails {
     private RolesEnum role;//if -1 = admin*/
 
     @Column(name = "first_connexion",columnDefinition = "TINYINT(1) default 1",nullable = false)
-    private int firstConnexion;
+    private int firtConnection;
 
     @ManyToOne
     @JoinColumn(name = "department_number",nullable = false)
@@ -71,7 +71,8 @@ public class User implements UserDetails {
         this.surname = userdao.getSurname();
         this.mail = userdao.getMail();
         this.role = userdao.getRole();
-        this.department_number= getDepartment_number();
+        this.department_number = userdao.getDepartment_number();
+        this.firtConnection = userdao.getFirstConnection();
     }
     public UserDAO convertToUserDAO(){
         return new UserDAO(
@@ -82,12 +83,12 @@ public class User implements UserDetails {
                 this.getSurname(),
                 this.getMail(),
                 this.getRole(),
-                this.getDepartment_number()
-
+                this.getDepartment_number(),
+                this.getFirtConnection()
         );
     }
-    public void setFirstConnexion(int firstConnexion) {
-        this.firstConnexion = firstConnexion;
+    public void setFirtConnection(int firtConnection) {
+        this.firtConnection = firtConnection;
     }
 
     public void setPassword(String password) {
@@ -122,8 +123,8 @@ public class User implements UserDetails {
         return true;
     }
 
-    public int getFirstConnexion() {
-        return firstConnexion;
+    public int getFirtConnection() {
+        return firtConnection;
     }
 
     @Override

@@ -20,10 +20,11 @@ public class UserDAO {
 
     private RolesEnum role;//if -1 = admin*/
 
+    private int firstConnection;
 
     private Department department_number;// if -1 = admin
 
-    public UserDAO(int userId, String login, String password, String name, String surname, String mail, RolesEnum role, Department department_number) {
+    public UserDAO(int userId, String login, String password, String name, String surname, String mail, RolesEnum role, Department department_number, int firstConnection) {
         this.userId = userId;
         this.login = login;
         this.password = password;
@@ -32,5 +33,6 @@ public class UserDAO {
         this.mail = mail;
         this.role = role;
         this.department_number = department_number;
+        this.firstConnection = firstConnection;
     }
 }
