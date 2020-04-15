@@ -6,8 +6,6 @@ import fr.iut.projet.projettutorearchetype.models.User;
 import fr.iut.projet.projettutorearchetype.models.UserDAO;
 import fr.iut.projet.projettutorearchetype.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,12 +13,13 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*")
+@RequestMapping("/users")
 public class UserController {
 
     @Autowired
     UserService userService;
 
-    @PostMapping("user")
+    @PostMapping("")
     public User addUser(
             @RequestBody UserDAO userdao
     ){
@@ -37,14 +36,14 @@ public class UserController {
     }
 
 
-    @GetMapping("users")
+    @GetMapping("")
     public List<User> getAllUsers(){
         return userService.getAllUsers();
     }
 
-    @GetMapping("user")
-    public User getuser(
-            @RequestParam(name = "id") int id
+    @GetMapping("{id}")
+    public UserDAO getuser(
+            @PathVariable(name = "id") int id
             ){
         User requestUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         System.out.println(requestUser.getLogin());
@@ -52,8 +51,28 @@ public class UserController {
         if(!theUser.getLogin().equals(requestUser.getLogin()) && !(requestUser.getRoles().toArray()[0].equals(RolesEnum.DEPARTMENT_MANAGER))){
             throw new ForbiddenException();
         }
-        return userService.getUser(id);
+        return userService.getUser(id).convertToUserDAO();
     }
+
+    @GetMapping("me")
+    public UserDAO getMyUser(){
+        User requestUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return requestUser.convertToUserDAO();
+    }
+
+    @PatchMapping("{id}")
+    public UserDAO changeUser(
+            @PathVariable(name = "id") int id,
+            @RequestBody UserDAO userDAO
+    ){
+        User requestUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User theUser = userService.getUser(id);
+        if( !theUser.getLogin().equals(requestUser.getLogin()) && !(requestUser.getRoles().toArray()[0].equals(RolesEnum.ADMINISTRATOR))){
+            throw new ForbiddenException();
+        }
+        return userService.changeUser(id,userDAO);
+    }
+
 
     /*@PreAuthorize("hasAnyAuthority('MANAGER')")
     @DeleteMapping("user")

@@ -73,6 +73,19 @@ public class User implements UserDetails {
         this.role = userdao.getRole();
         this.department_number= getDepartment_number();
     }
+    public UserDAO convertToUserDAO(){
+        return new UserDAO(
+                this.getUserId(),
+                this.getLogin(),
+                null,
+                this.getName(),
+                this.getSurname(),
+                this.getMail(),
+                this.getRole(),
+                this.getDepartment_number()
+
+        );
+    }
     public void setFirstConnexion(int firstConnexion) {
         this.firstConnexion = firstConnexion;
     }
