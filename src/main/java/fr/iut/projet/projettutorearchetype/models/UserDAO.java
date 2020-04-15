@@ -22,9 +22,9 @@ public class UserDAO {
 
     private int firstConnection;
 
-    private Department department_number;// if -1 = admin
+    private Department departmentNumber;// if -1 = admin
 
-    public UserDAO(int userId, String login, String password, String name, String surname, String mail, RolesEnum role, Department department_number, int firstConnection) {
+    public UserDAO(int userId, String login, String password, String name, String surname, String mail, RolesEnum role, Department departmentNumber, int firstConnection) {
         this.userId = userId;
         this.login = login;
         this.password = password;
@@ -32,7 +32,7 @@ public class UserDAO {
         this.surname = surname;
         this.mail = mail;
         this.role = role;
-        this.department_number = department_number;
+        this.departmentNumber = departmentNumber;
         this.firstConnection = firstConnection;
     }
 }
