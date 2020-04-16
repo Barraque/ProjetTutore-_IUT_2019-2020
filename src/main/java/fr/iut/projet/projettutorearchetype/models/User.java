@@ -74,6 +74,7 @@ public class User implements UserDetails {
         this.departmentNumber = userdao.getDepartmentNumber();
         this.firstConnection = userdao.getFirstConnection();
     }
+  
     public UserDAO convertToUserDAO(){
         return new UserDAO(
                 this.getUserId(),
@@ -87,6 +88,7 @@ public class User implements UserDetails {
                 this.getFirstConnection()
         );
     }
+  
     public void setFirtConnection(int firtConnection) {
         this.firstConnection = firtConnection;
     }
@@ -94,7 +96,6 @@ public class User implements UserDetails {
     public void setPassword(String password) {
         this.password = password;
     }
-
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
