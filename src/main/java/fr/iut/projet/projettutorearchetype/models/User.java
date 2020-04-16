@@ -89,8 +89,8 @@ public class User implements UserDetails {
         );
     }
   
-    public void setFirtConnection(int firtConnection) {
-        this.firstConnection = firtConnection;
+    public void setFirstConnection(int firstConnection) {
+        this.firstConnection = firstConnection;
     }
 
     public void setPassword(String password) {

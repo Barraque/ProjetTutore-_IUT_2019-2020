@@ -30,7 +30,7 @@ public class UserController {
             throw new ForbiddenException();
         }
 
-        user.setFirtConnection(1);
+        user.setFirstConnection(1);
         userService.createPassword(user);
         return userService.addUser(user);
     }
