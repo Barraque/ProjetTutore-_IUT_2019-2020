@@ -8,12 +8,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping("offer")
 public class OfferController{
 
     @Autowired
     OfferService offerService;
 
-    @PostMapping("offer")
+    @PostMapping("")
     public Offer addOffer(
             @RequestBody Offer offer
     ){
@@ -21,14 +22,14 @@ public class OfferController{
 
     }
 
-    @GetMapping("offers")
+    @GetMapping("all")
     public List<Offer> getAllOffers(){
         return offerService.getAllOffers();
     }
 
-    @GetMapping("offer")
+    @GetMapping("{id}")
     public Offer getOffer(
-            @RequestParam(name="id") int id
+            @PathVariable(name="id") int id
     ){
         return offerService.getOffer(id);
     }

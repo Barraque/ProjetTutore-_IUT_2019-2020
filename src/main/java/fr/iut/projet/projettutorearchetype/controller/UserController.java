@@ -13,7 +13,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("/users")
+@RequestMapping("/user")
 public class UserController {
 
     @Autowired
@@ -36,7 +36,7 @@ public class UserController {
     }
 
 
-    @GetMapping("")
+    @GetMapping("all")
     public List<User> getAllUsers(){
         return userService.getAllUsers();
     }
