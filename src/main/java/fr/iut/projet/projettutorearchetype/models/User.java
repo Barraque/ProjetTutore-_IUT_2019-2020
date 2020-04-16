@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.util.StringUtils;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Objects;
@@ -21,6 +22,7 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name="user_id",updatable = false,nullable = false)
+    @Min(value = 0, message = "Id must be over 0")
     private int userId;
 
     @Column(name = "login",nullable = false,unique = true)
@@ -47,7 +49,8 @@ public class User implements UserDetails {
 
     @ManyToOne
     @JoinColumn(name = "department_number",nullable = false)
-    private Department department_number;// if -1 = admin
+    private Department departmentNumber;// if -1 = admin
+
 
     public User(){};
 
@@ -58,9 +61,18 @@ public class User implements UserDetails {
         this.surname = user.surname;
         this.mail = user.mail;
         this.role = user.role;
-        this.department_number= user.department_number;
+        this.departmentNumber = user.departmentNumber;
     }
 
+    public User(UserDAO userdao){
+        this.login = userdao.getLogin();
+        this.password = userdao.getPassword();
+        this.name = userdao.getName();
+        this.surname = userdao.getSurname();
+        this.mail = userdao.getMail();
+        this.role = userdao.getRole();
+        this.departmentNumber= userdao.getDepartmentNumber();
+    }
     public void setFirstConnexion(int firstConnexion) {
         this.firstConnexion = firstConnexion;
     }
@@ -131,9 +143,6 @@ public class User implements UserDetails {
         return mail;
     }
 
-    public String password2;
-
-
     public Collection<RolesEnum> getRoles() {
         ArrayList<RolesEnum> role = new ArrayList<RolesEnum>();
         role.add(this.role);
@@ -141,7 +150,7 @@ public class User implements UserDetails {
     }
 
     public Department getDepartmentSet() {
-        return department_number;
+        return departmentNumber;
     }
 
     @Override
