@@ -1,6 +1,7 @@
 package fr.iut.projet.projettutorearchetype.models;
 
 import lombok.Getter;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Getter
 public class UserDAO {
