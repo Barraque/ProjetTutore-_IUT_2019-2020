@@ -10,12 +10,13 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*")
+@RequestMapping(Constants.apiConstant+"tag")
 public class TagController {
 
     @Autowired
     TagService tagService;
 
-    @PostMapping(Constants.apiConstant+"tag")
+    @PostMapping("")
     public Tag addTag(
             @RequestBody Tag tag
     ){
@@ -26,14 +27,14 @@ public class TagController {
     }
 
 
-    @GetMapping(Constants.apiConstant+"tags")
+    @GetMapping("all")
     public List<Tag> getAllTag(){
         return tagService.getAllTags();
     }
 
-    @GetMapping(Constants.apiConstant+"tag")
+    @GetMapping("{id}")
     public Tag getTag(
-            @RequestParam(name = "id") int id
+            @PathVariable int id
     ){
         return tagService.getTag(id);
     }

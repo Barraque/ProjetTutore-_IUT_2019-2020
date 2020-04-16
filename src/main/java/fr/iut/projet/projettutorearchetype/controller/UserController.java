@@ -10,12 +10,13 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*")
+@RequestMapping(Constants.apiConstant+"user")
 public class UserController {
 
     @Autowired
     UserService userService;
 
-    @PostMapping(Constants.apiConstant+"user")
+    @PostMapping("")
     public User addUser(
             @RequestBody User user
     ){
@@ -28,14 +29,14 @@ public class UserController {
     }
 
 
-    @GetMapping(Constants.apiConstant+"users")
+    @GetMapping("all")
     public List<User> getAllUsers(){
         return userService.getAllUsers();
     }
 
-    @GetMapping(Constants.apiConstant+"user")
+    @GetMapping("{id}")
     public User getuser(
-            @RequestParam(name = "id") int id
+            @PathVariable int id
     ){
         return userService.getUser(id);
     }
