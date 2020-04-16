@@ -3,7 +3,6 @@ package fr.iut.projet.projettutorearchetype.controller;
 import fr.iut.projet.projettutorearchetype.models.Tag;
 import fr.iut.projet.projettutorearchetype.services.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -32,10 +31,10 @@ public class TagController {
         return tagService.getAllTags();
     }
 
-    @GetMapping("")
+    @GetMapping("{id}")
     //@PreAuthorize("hasRole('ADMINISTRATOR')")
     public Tag getTag(
-            @RequestParam(name = "id") int id
+            @PathVariable(name = "id") int id
     ){
         return tagService.getTag(id);
     }

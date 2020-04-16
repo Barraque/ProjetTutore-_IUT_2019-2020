@@ -1,6 +1,7 @@
 package fr.iut.projet.projettutorearchetype.models;
 
 import lombok.Getter;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Getter
 public class UserDAO {
@@ -8,6 +9,7 @@ public class UserDAO {
 
     private String login;
 
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
     private String name;
@@ -18,11 +20,11 @@ public class UserDAO {
 
     private RolesEnum role;//if -1 = admin*/
 
-    private int firstConnexion;
+    private int firstConnection;
 
     private Department departmentNumber;// if -1 = admin
 
-    public UserDAO(int userId, String login, String password, String name, String surname, String mail, RolesEnum role, int firstConnexion, Department departmentNumber) {
+    public UserDAO(int userId, String login, String password, String name, String surname, String mail, RolesEnum role, Department departmentNumber, int firstConnection) {
         this.userId = userId;
         this.login = login;
         this.password = password;
@@ -30,7 +32,7 @@ public class UserDAO {
         this.surname = surname;
         this.mail = mail;
         this.role = role;
-        this.firstConnexion = firstConnexion;
         this.departmentNumber = departmentNumber;
+        this.firstConnection = firstConnection;
     }
 }

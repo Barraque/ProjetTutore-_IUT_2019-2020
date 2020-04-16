@@ -45,7 +45,7 @@ public class User implements UserDetails {
     private RolesEnum role;//if -1 = admin*/
 
     @Column(name = "first_connexion",columnDefinition = "TINYINT(1) default 1",nullable = false)
-    private int firstConnexion;
+    private int firstConnection;
 
     @ManyToOne
     @JoinColumn(name = "department_number",nullable = false)
@@ -61,7 +61,7 @@ public class User implements UserDetails {
         this.surname = user.surname;
         this.mail = user.mail;
         this.role = user.role;
-        this.departmentNumber = user.departmentNumber;
+        this.departmentNumber= user.departmentNumber;
     }
 
     public User(UserDAO userdao){
@@ -71,16 +71,31 @@ public class User implements UserDetails {
         this.surname = userdao.getSurname();
         this.mail = userdao.getMail();
         this.role = userdao.getRole();
-        this.departmentNumber= userdao.getDepartmentNumber();
+        this.departmentNumber = userdao.getDepartmentNumber();
+        this.firstConnection = userdao.getFirstConnection();
     }
-    public void setFirstConnexion(int firstConnexion) {
-        this.firstConnexion = firstConnexion;
+  
+    public UserDAO convertToUserDAO(){
+        return new UserDAO(
+                this.getUserId(),
+                this.getLogin(),
+                null,
+                this.getName(),
+                this.getSurname(),
+                this.getMail(),
+                this.getRole(),
+                this.getDepartmentNumber(),
+                this.getFirstConnection()
+        );
+    }
+  
+    public void setFirstConnection(int firstConnection) {
+        this.firstConnection = firstConnection;
     }
 
     public void setPassword(String password) {
         this.password = password;
     }
-
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -109,8 +124,8 @@ public class User implements UserDetails {
         return true;
     }
 
-    public int getFirstConnexion() {
-        return firstConnexion;
+    public int getFirstConnection() {
+        return firstConnection;
     }
 
     @Override
