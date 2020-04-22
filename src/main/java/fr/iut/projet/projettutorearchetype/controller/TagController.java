@@ -1,6 +1,7 @@
 package fr.iut.projet.projettutorearchetype.controller;
 
 import fr.iut.projet.projettutorearchetype.constants.Constants;
+import fr.iut.projet.projettutorearchetype.models.CV;
 import fr.iut.projet.projettutorearchetype.models.Tag;
 import fr.iut.projet.projettutorearchetype.services.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,5 +40,19 @@ public class TagController {
         return tagService.getTag(id);
     }
 
+
+    @GetMapping("user/{id}")
+    public Tag findByUser_userId(
+            @PathVariable int id
+    ){
+        return tagService.findByUser_userId(id);
+    }
+
+    @GetMapping("user/{login}")
+    public Tag findByUser_userLogin(
+            @PathVariable String login
+    ){
+        return tagService.findByUser_login(login);
+    }
 
 }
