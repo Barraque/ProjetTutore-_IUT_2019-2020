@@ -20,6 +20,7 @@ import java.sql.Blob;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import static org.junit.Assert.*;
@@ -117,9 +118,9 @@ public class UserServiceTest {
         assertEquals(test, goodUser);
     }
 
-    @Test
+    @Test(expected = NoSuchElementException.class)
     public void getUnknownUser(){
-        User notRealUser = userService.getUser(987450);
+        User notRealUser = userService.getUser(2);
 
         assertNotEquals(notRealUser,goodUser);
     }

@@ -14,6 +14,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import static org.junit.Assert.*;
@@ -80,9 +81,9 @@ public class DepartmentServiceTest {
         assertEquals(test, goodDepartment);
     }
 
-    @Test
+    @Test(expected = NoSuchElementException.class)
     public void getUnknownDepartment(){
-        Department notRealDepartment = departmentService.getDepartment(987450);
+        Department notRealDepartment = departmentService.getDepartment(2);
 
         assertNotEquals(notRealDepartment,goodDepartment);
     }

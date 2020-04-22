@@ -18,6 +18,7 @@ import java.sql.Blob;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import static org.junit.Assert.*;
@@ -90,9 +91,9 @@ public class OfferServiceTest {
         assertEquals(test, goodOffer);
     }
 
-    @Test
+    @Test(expected = NoSuchElementException.class)
     public void getUnknownOffer(){
-        Offer notRealOffer = offerService.getOffer(987450);
+        Offer notRealOffer = offerService.getOffer(2);
         assertNotEquals(notRealOffer,goodOffer);
     }
 }
