@@ -22,7 +22,7 @@ public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(name="user_id",updatable = false,nullable = false)
+    @Column(name="userId",updatable = false,nullable = false)
     private int userId;
 
     @Column(name = "login",nullable = false,unique = true)
@@ -44,12 +44,12 @@ public class User implements UserDetails {
     @Column(name = "role", nullable = false)
     private RolesEnum role;//if -1 = admin*/
 
-    @Column(name = "first_connexion",columnDefinition = "TINYINT(1) default 1",nullable = false)
+    @Column(name = "firstConnexion",columnDefinition = "TINYINT(1) default 1",nullable = false)
     private int firstConnexion;
 
     @ManyToOne
-    @JoinColumn(name = "department_number",nullable = false)
-    private Department department_number;// if -1 = admin
+    @JoinColumn(name = "departmentNumber",nullable = false)
+    private Department departmentNumber;// if -1 = admin
 
     public User(){};
 
@@ -60,7 +60,7 @@ public class User implements UserDetails {
         this.lastname = user.lastname;
         this.mail = user.mail;
         this.role = user.role;
-        this.department_number= user.department_number;
+        this.departmentNumber= user.departmentNumber;
     }
 
     public void setFirstConnexion(int firstConnexion) {
@@ -140,6 +140,43 @@ public class User implements UserDetails {
     }
 
     public Department getDepartmentSet() {
-        return department_number;
+        return departmentNumber;
+    }
+
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+
+    public void setMail(String mail) {
+        this.mail = mail;
+    }
+
+    public RolesEnum getRole() {
+        return role;
+    }
+
+    public void setRole(RolesEnum role) {
+        this.role = role;
+    }
+
+    public Department getDepartmentNumber() {
+        return departmentNumber;
+    }
+
+    public void setDepartmentNumber(Department departmentNumber) {
+        this.departmentNumber = departmentNumber;
     }
 }
