@@ -1,6 +1,7 @@
 package fr.iut.projet.projettutorearchetype.services;
 
 import fr.iut.projet.projettutorearchetype.models.Department;
+import fr.iut.projet.projettutorearchetype.models.Offer;
 import fr.iut.projet.projettutorearchetype.repositories.DepartmentRepository;
 import org.junit.Before;
 import org.junit.Test;
@@ -86,5 +87,11 @@ public class DepartmentServiceTest {
         Department notRealDepartment = departmentService.getDepartment(2);
 
         assertNotEquals(notRealDepartment,goodDepartment);
+    }
+
+    @Test
+    public void getAllDepartments(){
+        List<Department> allDepartments = departmentService.getAllDepartments();
+        assertEquals(allDepartments,departmentList);
     }
 }

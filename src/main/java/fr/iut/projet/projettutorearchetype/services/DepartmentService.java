@@ -23,7 +23,7 @@ public class DepartmentService {
         return department.get();
     }
 
-    public List<Department> getAllDepartment(){
+    public List<Department> getAllDepartments(){
         return  departmentRepository.findAll();
     }
 }

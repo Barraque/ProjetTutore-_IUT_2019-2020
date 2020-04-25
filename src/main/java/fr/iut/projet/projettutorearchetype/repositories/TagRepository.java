@@ -10,6 +10,4 @@ import java.util.UUID;
 
 @Repository
 public interface TagRepository extends JpaRepository<Tag, Integer> {
-    Optional<Tag> findByUser_login(String userLogin);
-    Optional<Tag> findByUser_userId(int userId);
 }

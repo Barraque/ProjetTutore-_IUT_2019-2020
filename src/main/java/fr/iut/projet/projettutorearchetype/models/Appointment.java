@@ -1,9 +1,14 @@
 package fr.iut.projet.projettutorearchetype.models;
 
+import lombok.Data;
+
 import javax.persistence.*;
 
 import static org.springframework.http.HttpHeaders.DATE;
 
+@Data
+@Table
+@Entity
 public class Appointment {
 
     @Id
@@ -11,10 +16,12 @@ public class Appointment {
     @Column(name="rdvId",updatable = false,nullable = false)
     private int rdvId;
 
-    @Column(name="user", nullable = false)
+    @OneToOne
+    @JoinColumn(name = "user", referencedColumnName = "userId")
     private User user;
 
-    @Column(name="offer", nullable = false)
+    @OneToOne
+    @JoinColumn(name = "offer", referencedColumnName = "offerId")
     private Offer offer;
 
     @Column(name="startTime",columnDefinition = DATE,nullable = false)
@@ -22,6 +29,8 @@ public class Appointment {
 
     @Column(name="duration",columnDefinition = "TINYINT(1) default 1",nullable = false)
     private int duration;
+
+
 
     public int getRdvId() {
         return rdvId;
@@ -47,12 +56,12 @@ public class Appointment {
         this.offer = offer;
     }
 
-    public int getStart_time() {
+    public int getStartTime() {
         return startTime;
     }
 
-    public void setStart_time(int start_time) {
-        this.startTime = start_time;
+    public void setStartTime(int startTime) {
+        this.startTime = startTime;
     }
 
     public int getDuration() {

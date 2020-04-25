@@ -17,7 +17,7 @@ public class CV {
     private int cvId;
 
     @OneToOne
-    @JoinColumn(name = "user", referencedColumnName = "userId", nullable = false)
+    @JoinColumn(name = "user", referencedColumnName = "userId")
     private User user;
 
 

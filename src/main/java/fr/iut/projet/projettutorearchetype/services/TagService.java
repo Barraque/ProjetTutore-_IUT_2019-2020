@@ -36,13 +36,4 @@ public class TagService {
         return tagRepository.findAll();
     }
 
-    public Tag findByUser_userId(final int userId){
-        Optional<Tag> tag = tagRepository.findByUser_userId(userId);
-        return tag.get();
-    }
-
-    public Tag findByUser_login(final String userLogin){
-        Optional<Tag> tag = tagRepository.findByUser_login(userLogin);
-        return tag.get();
-    }
 }

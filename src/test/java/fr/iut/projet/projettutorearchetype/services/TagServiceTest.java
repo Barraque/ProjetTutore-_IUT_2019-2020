@@ -88,7 +88,7 @@ public class TagServiceTest {
     }
 
     @Test
-    public void getTags(){
+    public void getAllTags(){
         List<Tag> tags = tagService.getAllTags();
         assertEquals(tags,tagList);
     }

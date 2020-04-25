@@ -41,18 +41,5 @@ public class TagController {
     }
 
 
-    @GetMapping("user/{id}")
-    public Tag findByUser_userId(
-            @PathVariable int id
-    ){
-        return tagService.findByUser_userId(id);
-    }
-
-    @GetMapping("user/{login}")
-    public Tag findByUser_userLogin(
-            @PathVariable String login
-    ){
-        return tagService.findByUser_login(login);
-    }
 
 }

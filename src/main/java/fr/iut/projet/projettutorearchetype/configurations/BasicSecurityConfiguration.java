@@ -2,6 +2,7 @@ package fr.iut.projet.projettutorearchetype.configurations;
 
 import fr.iut.projet.projettutorearchetype.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -13,10 +14,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
-class BasicSecurityConfiguration extends WebSecurityConfigurerAdapter {
+public class BasicSecurityConfiguration extends WebSecurityConfigurerAdapter {
+
 
     @Autowired
-    private UserService userService;
+    public UserService userService;
+
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {

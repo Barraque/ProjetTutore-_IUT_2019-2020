@@ -1,6 +1,7 @@
 package fr.iut.projet.projettutorearchetype.services;
 
 import fr.iut.projet.projettutorearchetype.models.Offer;
+import fr.iut.projet.projettutorearchetype.models.Tag;
 import fr.iut.projet.projettutorearchetype.repositories.OfferRepository;
 import org.junit.Before;
 import org.junit.Test;
@@ -95,5 +96,11 @@ public class OfferServiceTest {
     public void getUnknownOffer(){
         Offer notRealOffer = offerService.getOffer(2);
         assertNotEquals(notRealOffer,goodOffer);
+    }
+
+    @Test
+    public void getAllOffers(){
+        List<Offer> allOffers = offerService.getAllOffers();
+        assertEquals(allOffers,offerList);
     }
 }

@@ -8,7 +8,7 @@ import org.springframework.web.server.MethodNotAllowedException;
 
 import java.util.NoSuchElementException;
 
-@ControllerAdvice(value = "fr.iut.projet.projettutorearchetype.controleurs")
+@ControllerAdvice(value = "fr.iut.projet.projettutorearchetype.controller")
 public class GlobalExceptionHandler {
 
     /**
