@@ -1,6 +1,8 @@
 package fr.iut.projet.projettutorearchetype.configurations;
 
+import fr.iut.projet.projettutorearchetype.jwt.AuthEntryPointJwt;
 import fr.iut.projet.projettutorearchetype.models.User;
+import fr.iut.projet.projettutorearchetype.payload.AuthTokenFilter;
 import fr.iut.projet.projettutorearchetype.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;

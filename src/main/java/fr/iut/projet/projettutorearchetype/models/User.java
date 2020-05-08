@@ -14,6 +14,7 @@ import org.springframework.util.StringUtils;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -46,8 +47,8 @@ public class User implements UserDetails {
     @Column(name = "role", nullable = false)
     private RolesEnum role;//if -1 = admin*/
 
-    @Column(name = "firstConnexion",columnDefinition = "TINYINT(1) default 1",nullable = false)
-    private int firstConnexion;
+    @Column(name = "firstConnection",columnDefinition = "TINYINT(1) default 1",nullable = false)
+    private int firstConnection;
 
     @ManyToOne
     @JoinColumn(name = "departmentNumber",nullable = false)
@@ -69,8 +70,8 @@ public class User implements UserDetails {
     public User(UserDAO userdao){
         this.login = userdao.getLogin();
         this.password = userdao.getPassword();
-        this.name = userdao.getName();
-        this.surname = userdao.getSurname();
+        this.firstname = userdao.getFirstname();
+        this.lastname = userdao.getLastname();
         this.mail = userdao.getMail();
         this.role = userdao.getRole();
         this.departmentNumber = userdao.getDepartmentNumber();
@@ -82,8 +83,8 @@ public class User implements UserDetails {
                 this.getUserId(),
                 this.getLogin(),
                 null,
-                this.getName(),
-                this.getSurname(),
+                this.getFirstname(),
+                this.getLastname(),
                 this.getMail(),
                 this.getRole(),
                 this.getDepartmentNumber(),
@@ -179,7 +180,6 @@ public class User implements UserDetails {
             return false;
         User user = (User) o;
         return Objects.equals(userId, user.userId);
-        return departmentNumber;
     }
 
 
