@@ -46,9 +46,7 @@ public class OfferServiceTest {
         goodOffer.setOfferId(1);
         goodOffer.setTitle("OfferTitleTest");
 
-        List<Byte> offerFile = new ArrayList<>();
-        Byte byt = 0;
-        offerFile.add(byt);
+        byte[] offerFile = new byte[0];
 
         goodOffer.setOfferFile(offerFile);
 

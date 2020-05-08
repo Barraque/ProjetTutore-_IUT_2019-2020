@@ -28,8 +28,8 @@ public class Offer {
 
 
     @Lob
-    @Column(name="offerFile",columnDefinition = "BLOB",nullable = false)
-    private List<Byte> offerFile;
+    @Column(name="offerFile",nullable = false)
+    private byte[] offerFile;
 
 
     public int getOfferId() {
@@ -48,11 +48,11 @@ public class Offer {
         this.title = title;
     }
 
-    public List<Byte> getOfferFile() {
+    public byte[] getOfferFile() {
         return offerFile;
     }
 
-    public void setOfferFile(List<Byte> offerFile) {
+    public void setOfferFile(byte[] offerFile) {
         this.offerFile = offerFile;
     }
 }

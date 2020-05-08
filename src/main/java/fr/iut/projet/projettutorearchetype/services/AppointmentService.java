@@ -15,6 +15,7 @@ public class AppointmentService {
     AppointmentRepository appointmentRepository;
 
     public Appointment addAppointment(final Appointment appointment){
+
         return appointmentRepository.save(appointment);
     }
 

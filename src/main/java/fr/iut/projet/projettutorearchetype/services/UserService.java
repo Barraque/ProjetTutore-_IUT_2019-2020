@@ -57,11 +57,11 @@ public class UserService implements UserDetailsService {
         if (userDAO.getPassword() != null ){
             theUser.get().setPassword(userDAO.getPassword());
         }
-        if (userDAO.getName() != null){
-            theUser.get().setName(userDAO.getName());
+        if (userDAO.getFirstname() != null){
+            theUser.get().setFirstname(userDAO.getFirstname());
         }
-        if (userDAO.getSurname() != null ) {
-            theUser.get().setSurname(userDAO.getSurname());
+        if (userDAO.getLastname() != null ) {
+            theUser.get().setLastname(userDAO.getLastname());
         }
         // toDo : Do we allowed this ?
         /*if (userDAO.getRole() != null ) {

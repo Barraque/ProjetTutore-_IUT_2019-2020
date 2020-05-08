@@ -54,7 +54,7 @@ public class UserServiceTest {
         goodUser.setLastname("UserLastnameTest");
         goodUser.setMail("UserMailTest");
         goodUser.setRole(RolesEnum.STUDENT);
-        goodUser.setFirstConnexion(1);
+        goodUser.setFirstConnection(1);
 
         goodDepartment = new Department();
         goodDepartment.setDepartmentId(1);
@@ -87,7 +87,7 @@ public class UserServiceTest {
         userToBeAdd.setLastname("UserLastnameTest");
         userToBeAdd.setMail("UserMailTest");
         userToBeAdd.setRole(RolesEnum.STUDENT);
-        userToBeAdd.setFirstConnexion(1);
+        userToBeAdd.setFirstConnection(1);
 
         goodDepartment = new Department();
         goodDepartment.setDepartmentId(1);

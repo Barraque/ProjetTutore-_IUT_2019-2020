@@ -24,10 +24,10 @@ public class Appointment {
     @JoinColumn(name = "offer", referencedColumnName = "offerId")
     private Offer offer;
 
-    @Column(name="startTime",columnDefinition = DATE,nullable = false)
+    @Column(name="startTime", nullable = false)
     private int startTime;
 
-    @Column(name="duration",columnDefinition = "TINYINT(1) default 1",nullable = false)
+    @Column(name="duration", nullable = false)
     private int duration;
 
 

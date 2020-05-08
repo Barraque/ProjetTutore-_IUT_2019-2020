@@ -1,6 +1,5 @@
 package fr.iut.projet.projettutorearchetype.controller;
 
-import fr.iut.projet.projettutorearchetype.constants.Constants;
 import fr.iut.projet.projettutorearchetype.models.Appointment;
 import fr.iut.projet.projettutorearchetype.services.AppointmentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(Constants.apiConstant+"appointment")
+@RequestMapping("appointment")
 public class AppointmentController {
 
     @Autowired
@@ -39,12 +38,5 @@ public class AppointmentController {
             @PathVariable int id
     ){
         return appointmentService.findByUser_userId(id);
-    }
-
-    @GetMapping("user/{login}")
-    public Appointment findByUser_userLogin(
-            @PathVariable String login
-    ){
-        return appointmentService.findByUser_login(login);
     }
 }
