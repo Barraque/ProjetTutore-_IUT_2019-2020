@@ -1,5 +1,6 @@
 package fr.iut.projet.projettutorearchetype.controller;
 
+import fr.iut.projet.projettutorearchetype.models.RolesEnum;
 import fr.iut.projet.projettutorearchetype.models.User;
 import fr.iut.projet.projettutorearchetype.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +23,8 @@ public class UserController {
             @RequestBody User user,
             @AuthenticationPrincipal User requestUser
     ){
-        if(!(requestUser.getRoles().toArray()[0].equals(RolesEnum.MANAGER))){
-            throw new ForbiddenException();
+        if(!(requestUser.getRoles().toArray()[0].equals(RolesEnum.DEPARTMENT_MANAGER))){
+            throw new fr.iut.projet.projettutorearchetype.Exceptions.ForbiddenException();
         }
         user.setFirstConnexion(1);
         userService.createPassword(user);
