@@ -1,16 +1,17 @@
 package fr.iut.projet.projettutorearchetype.controller;
 
-import fr.iut.projet.projettutorearchetype.constants.Constants;
 import fr.iut.projet.projettutorearchetype.models.User;
 import fr.iut.projet.projettutorearchetype.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping(Constants.apiConstant+"user")
 public class UserController {
 
     @Autowired
@@ -18,8 +19,12 @@ public class UserController {
 
     @PostMapping("")
     public User addUser(
-            @RequestBody User user
+            @RequestBody User user,
+            @AuthenticationPrincipal User requestUser
     ){
+        if(!(requestUser.getRoles().toArray()[0].equals(RolesEnum.MANAGER))){
+            throw new ForbiddenException();
+        }
         user.setFirstConnexion(1);
         userService.createPassword(user);
         if (user != null){

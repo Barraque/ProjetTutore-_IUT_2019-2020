@@ -1,6 +1,8 @@
 package fr.iut.projet.projettutorearchetype.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonView;
 import com.fasterxml.jackson.databind.util.EnumResolver;
 import lombok.Data;
 import org.hibernate.annotations.Cascade;
@@ -28,7 +30,7 @@ public class User implements UserDetails {
     @Column(name = "login",nullable = false,unique = true)
     private String login;
 
-    @JsonIgnore
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Column(name = "password",nullable = false)
     private String password;
 

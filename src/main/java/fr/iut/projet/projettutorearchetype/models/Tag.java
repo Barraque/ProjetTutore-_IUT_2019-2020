@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 
+
 @Data
 @Table
 @Entity
@@ -15,7 +16,6 @@ public class Tag {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "tagId", updatable = false, nullable = false)
     private int tagId;
-
 
     @Column(name="name", nullable = false)
     private String name;
