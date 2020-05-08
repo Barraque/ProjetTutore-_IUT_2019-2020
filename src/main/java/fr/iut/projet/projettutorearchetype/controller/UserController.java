@@ -1,18 +1,19 @@
 package fr.iut.projet.projettutorearchetype.controller;
 
+import fr.iut.projet.projettutorearchetype.Exceptions.ForbiddenException;
 import fr.iut.projet.projettutorearchetype.models.RolesEnum;
 import fr.iut.projet.projettutorearchetype.models.User;
+import fr.iut.projet.projettutorearchetype.models.UserDAO;
 import fr.iut.projet.projettutorearchetype.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.Principal;
 import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*")
+@RequestMapping("/user")
 public class UserController {
 
     @Autowired
@@ -20,17 +21,17 @@ public class UserController {
 
     @PostMapping("")
     public User addUser(
-            @RequestBody User user,
-            @AuthenticationPrincipal User requestUser
+            @RequestBody UserDAO userdao
     ){
+        User requestUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = new User(userdao);
+
         if(!(requestUser.getRoles().toArray()[0].equals(RolesEnum.DEPARTMENT_MANAGER))){
-            throw new fr.iut.projet.projettutorearchetype.Exceptions.ForbiddenException();
+            throw new ForbiddenException();
         }
-        user.setFirstConnexion(1);
+
+        user.setFirstConnection(1);
         userService.createPassword(user);
-        if (user != null){
-            System.out.println(user.toString());
-        }
         return userService.addUser(user);
     }
 
@@ -41,10 +42,35 @@ public class UserController {
     }
 
     @GetMapping("{id}")
-    public User getuser(
-            @PathVariable int id
+    public UserDAO getuser(
+            @PathVariable(name = "id") int id
+            ){
+        User requestUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        System.out.println(requestUser.getLogin());
+        User theUser = userService.getUser(id);
+        if(!theUser.getLogin().equals(requestUser.getLogin()) && !(requestUser.getRoles().toArray()[0].equals(RolesEnum.DEPARTMENT_MANAGER))){
+            throw new ForbiddenException();
+        }
+        return userService.getUser(id).convertToUserDAO();
+    }
+
+    @GetMapping("me")
+    public UserDAO getMyUser(){
+        User requestUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return requestUser.convertToUserDAO();
+    }
+
+    @PatchMapping("{id}")
+    public UserDAO changeUser(
+            @PathVariable(name = "id") int id,
+            @RequestBody UserDAO userDAO
     ){
-        return userService.getUser(id);
+        User requestUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User theUser = userService.getUser(id);
+        if( !theUser.getLogin().equals(requestUser.getLogin()) && !(requestUser.getRoles().toArray()[0].equals(RolesEnum.ADMINISTRATOR))){
+            throw new ForbiddenException();
+        }
+        return userService.changeUser(id,userDAO);
     }
 
     /*@PreAuthorize("hasAnyAuthority('MANAGER')")

@@ -63,10 +63,36 @@ public class User implements UserDetails {
         this.mail = user.mail;
         this.role = user.role;
         this.departmentNumber= user.departmentNumber;
+        this.departmentNumber= user.departmentNumber;
     }
 
-    public void setFirstConnexion(int firstConnexion) {
-        this.firstConnexion = firstConnexion;
+    public User(UserDAO userdao){
+        this.login = userdao.getLogin();
+        this.password = userdao.getPassword();
+        this.name = userdao.getName();
+        this.surname = userdao.getSurname();
+        this.mail = userdao.getMail();
+        this.role = userdao.getRole();
+        this.departmentNumber = userdao.getDepartmentNumber();
+        this.firstConnection = userdao.getFirstConnection();
+    }
+
+    public UserDAO convertToUserDAO(){
+        return new UserDAO(
+                this.getUserId(),
+                this.getLogin(),
+                null,
+                this.getName(),
+                this.getSurname(),
+                this.getMail(),
+                this.getRole(),
+                this.getDepartmentNumber(),
+                this.getFirstConnection()
+        );
+    }
+
+    public void setFirstConnection(int firstConnection) {
+        this.firstConnection = firstConnection;
     }
 
     public void setPassword(String password) {
@@ -101,8 +127,8 @@ public class User implements UserDetails {
         return true;
     }
 
-    public int getFirstConnexion() {
-        return firstConnexion;
+    public int getFirstConnection() {
+        return firstConnection;
     }
 
     @Override
@@ -142,6 +168,17 @@ public class User implements UserDetails {
     }
 
     public Department getDepartmentSet() {
+        return departmentNumber;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+        User user = (User) o;
+        return Objects.equals(userId, user.userId);
         return departmentNumber;
     }
 
