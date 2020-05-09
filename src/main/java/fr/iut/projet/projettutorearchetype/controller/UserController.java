@@ -10,6 +10,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -57,7 +58,8 @@ public class UserController {
     @GetMapping("me")
     public UserDAO getMyUser(){
         User requestUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        return requestUser.convertToUserDAO();
+        User user = this.userService.getUserByLogin(requestUser.getLogin());
+        return user.convertToUserDAO();
     }
 
     @PatchMapping("{id}")
