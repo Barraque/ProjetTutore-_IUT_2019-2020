@@ -22,11 +22,10 @@ public class TagService {
     }
 
     public Tag getTag(final int tagId){
-
         Optional<Tag> tag = tagRepository.findById(tagId);
 
-        if(tag.isEmpty()){
-            throw new NoSuchElementException("tag[" + tagId + "]");
+        if (tag.isEmpty()) {
+            throw new NoSuchElementException("Unknown tag with ID [" + tagId + "]");
         }
 
         return tag.get();
