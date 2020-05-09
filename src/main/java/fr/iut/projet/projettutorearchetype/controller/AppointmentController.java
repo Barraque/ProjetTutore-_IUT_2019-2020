@@ -34,9 +34,9 @@ public class AppointmentController {
     }
 
     @GetMapping("user/{id}")
-    public Appointment findByUser_userId(
+    public List<Appointment> findByUser_userId(
             @PathVariable int id
     ){
-        return appointmentService.findByUser_userId(id);
+        return appointmentService.getAllAppointmentFromUserID(id);
     }
 }
