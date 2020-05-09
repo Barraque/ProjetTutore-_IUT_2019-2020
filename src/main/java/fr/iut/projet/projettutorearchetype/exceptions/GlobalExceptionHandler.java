@@ -2,6 +2,7 @@ package fr.iut.projet.projettutorearchetype.exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.server.MethodNotAllowedException;
@@ -21,7 +22,7 @@ public class GlobalExceptionHandler {
             final NoSuchElementException nsee
     ) {
         return new ResponseEntity<>(
-                "Resource not found : " + nsee.getMessage(),
+                "Resource not found -> " + nsee.getMessage(),
                 HttpStatus.NOT_FOUND
         );
     }
@@ -83,6 +84,22 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(
                 "Illegal state used : " + ise.getMessage(),
                 HttpStatus.BAD_REQUEST
+        );
+    }
+
+
+    /**
+     * Transforme une exception "nom d'utilisateur non trouvé" en erreur 404
+     * @param unfe Objet de l'exception
+     * @return ResponseEntity<String>
+     */
+    @ExceptionHandler(value = UsernameNotFoundException.class)
+    public ResponseEntity<String> handleUsernameNotFoundException(
+            final UsernameNotFoundException unfe
+    ) {
+        return new ResponseEntity<>(
+                "Nom d'utilisateur non trouvé : [" + unfe.getMessage() + "]",
+                HttpStatus.NOT_FOUND
         );
     }
 
