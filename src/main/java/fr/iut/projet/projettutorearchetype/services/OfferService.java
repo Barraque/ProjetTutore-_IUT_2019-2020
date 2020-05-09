@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -20,6 +21,11 @@ public class OfferService{
 
     public Offer getOffer (final int offerId){
         Optional<Offer> offer = offerRepository.findById(offerId);
+
+        if (offer.isEmpty()) {
+            throw new NoSuchElementException("Unknown offer with ID [" + offerId + "]");
+        }
+
         return offer.get();
     }
 
