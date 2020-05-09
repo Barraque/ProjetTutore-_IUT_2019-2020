@@ -38,13 +38,6 @@ public class CVController {
     public CV findByUser_userId(
             @PathVariable int id
     ){
-        return cvService.findByUser_userId(id);
-    }
-
-    @GetMapping("user/{login}")
-    public CV findByUser_userLogin(
-            @PathVariable String login
-    ){
-        return cvService.findByUser_login(login);
+        return cvService.getCvOfUserFromUserId(id);
     }
 }

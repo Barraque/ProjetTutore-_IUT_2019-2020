@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -20,6 +21,11 @@ public class CVService {
 
     public CV getCV(final int cvId){
         Optional<CV> cv = cvRepository.findById(cvId);
+
+        if (cv.isEmpty()) {
+            throw new NoSuchElementException("Unknown cv with ID [" + cvId + "]");
+        }
+
         return cv.get();
     }
 
@@ -27,13 +33,21 @@ public class CVService {
         return  cvRepository.findAll();
     }
 
-    public CV findByUser_userId(final int userId){
+    public CV getCvOfUserFromUserId(final int userId){
         Optional<CV> cv = cvRepository.findByUser_userId(userId);
+
+        if (cv.isEmpty()) {
+            throw new NoSuchElementException("Unknown cv that belong to user with ID [" + userId + "]");
+        }
         return cv.get();
     }
 
-    public CV findByUser_login(final String userLogin){
+    public CV getCvOfUserFromLogin(final String userLogin){
         Optional<CV> cv = cvRepository.findByUser_login(userLogin);
+
+        if (cv.isEmpty()) {
+            throw new NoSuchElementException("Unknown cv that belong to user with login [" + userLogin + "]");
+        }
         return cv.get();
     }
 }
