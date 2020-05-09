@@ -30,7 +30,7 @@ public class UserService implements UserDetailsService {
         Optional<User> user = userRepository.findById(userId);
 
         if (user.isEmpty()) {
-            throw new NoSuchElementException("Unknow user with ID [" + userId + "]");
+            throw new NoSuchElementException("Unknown user with ID [" + userId + "]");
         }
 
         return user.get();
@@ -40,7 +40,7 @@ public class UserService implements UserDetailsService {
         Optional<User> user = userRepository.findByLogin(login);
 
         if (user.isEmpty()) {
-            throw new NoSuchElementException("Unknow user with login [" + login + "]");
+            throw new NoSuchElementException("Unknown user with login [" + login + "]");
         }
 
         return user.get();
@@ -57,7 +57,7 @@ public class UserService implements UserDetailsService {
         Optional<User> theUser = userRepository.findById(id);
 
         if(theUser.isEmpty()){
-            throw new NoSuchElementException("Unknow user with ID [" + id + "]");
+            throw new NoSuchElementException("Unknown user with ID [" + id + "]");
         }
 
         if(userDAO.getMail() != null){
