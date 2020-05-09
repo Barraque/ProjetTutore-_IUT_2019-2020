@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -15,12 +16,16 @@ public class AppointmentService {
     AppointmentRepository appointmentRepository;
 
     public Appointment addAppointment(final Appointment appointment){
-
         return appointmentRepository.save(appointment);
     }
 
     public Appointment getAppointment(final int appointmentId){
         Optional<Appointment> appointment = appointmentRepository.findById(appointmentId);
+
+        if (appointment.isEmpty()) {
+            throw new NoSuchElementException("Unknown appointment with ID [" + appointmentId + "]");
+        }
+
         return appointment.get();
     }
 
@@ -28,13 +33,11 @@ public class AppointmentService {
         return  appointmentRepository.findAll();
     }
 
-    public Appointment findByUser_userId(final int userId){
-        Optional<Appointment> appointment = appointmentRepository.findByUser_userId(userId);
-        return appointment.get();
+    public List<Appointment> getAllAppointmentFromUserID(final int userId){
+        return appointmentRepository.findAllByUser_userId(userId);
     }
 
-    public Appointment findByUser_login(final String userLogin){
-        Optional<Appointment> appointment = appointmentRepository.findByUser_login(userLogin);
-        return appointment.get();
-    }
+    public List<Appointment> getAllAppointmentFromUserLogin(final String userLogin){
+        return appointmentRepository.findAllByUser_login(userLogin);
+    };
 }
