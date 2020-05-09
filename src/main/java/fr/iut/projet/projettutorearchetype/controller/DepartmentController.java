@@ -1,6 +1,5 @@
 package fr.iut.projet.projettutorearchetype.controller;
 
-import fr.iut.projet.projettutorearchetype.constants.Constants;
 import fr.iut.projet.projettutorearchetype.models.Department;
 import fr.iut.projet.projettutorearchetype.services.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +8,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(Constants.apiConstant+"department")
+@CrossOrigin(origins = "*")
+@RequestMapping("department")
 public class DepartmentController {
 
     @Autowired

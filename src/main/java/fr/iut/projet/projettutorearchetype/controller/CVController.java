@@ -1,6 +1,5 @@
 package fr.iut.projet.projettutorearchetype.controller;
 
-import fr.iut.projet.projettutorearchetype.constants.Constants;
 import fr.iut.projet.projettutorearchetype.models.CV;
 import fr.iut.projet.projettutorearchetype.services.CVService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +8,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(Constants.apiConstant+"cv")
+@CrossOrigin(origins = "*")
+@RequestMapping("cv")
 public class CVController {
 
     @Autowired

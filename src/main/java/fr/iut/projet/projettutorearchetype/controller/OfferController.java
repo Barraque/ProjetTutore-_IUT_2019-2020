@@ -1,6 +1,5 @@
 package fr.iut.projet.projettutorearchetype.controller;
 
-import fr.iut.projet.projettutorearchetype.constants.Constants;
 import fr.iut.projet.projettutorearchetype.models.Offer;
 import fr.iut.projet.projettutorearchetype.services.OfferService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(Constants.apiConstant+"offer")
+@RequestMapping("offer")
 @CrossOrigin(origins = "*")
 public class OfferController{
 

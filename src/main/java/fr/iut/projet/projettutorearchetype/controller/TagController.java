@@ -1,7 +1,6 @@
 package fr.iut.projet.projettutorearchetype.controller;
 
 import fr.iut.projet.projettutorearchetype.constants.Constants;
-import fr.iut.projet.projettutorearchetype.models.CV;
 import fr.iut.projet.projettutorearchetype.models.Tag;
 import fr.iut.projet.projettutorearchetype.services.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +24,7 @@ public class TagController {
             System.out.println(tag.toString());
         }
         return tagService.addTag(tag);
-    }
+    } 
 
 
     @GetMapping("all")

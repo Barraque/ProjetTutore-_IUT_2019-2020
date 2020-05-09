@@ -1,14 +1,15 @@
 package fr.iut.projet.projettutorearchetype.controller;
 
-import fr.iut.projet.projettutorearchetype.constants.Constants;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@CrossOrigin(origins = "*")
 public class HelloWorldController {
 
 
-    @GetMapping(Constants.apiConstant+"helloWorld")
+    @GetMapping("helloWorld")
     public String helloWorld (){return "Hello World !";}
 
 
