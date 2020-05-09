@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -20,6 +21,10 @@ public class DepartmentService {
 
     public Department getDepartment(final int departmentId){
         Optional<Department> department = departmentRepository.findById(departmentId);
+
+        if (department.isEmpty()) {
+            throw new NoSuchElementException("Unknown department with ID [" + departmentId + "]");
+        }
         return department.get();
     }
 
