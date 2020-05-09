@@ -29,11 +29,19 @@ public class UserService implements UserDetailsService {
     public User getUser(final int userId) {
         Optional<User> user = userRepository.findById(userId);
 
+        if (user.isEmpty()) {
+            throw new NoSuchElementException("Unknow user with ID [" + userId + "]");
+        }
+
         return user.get();
     }
 
     public User getUserByLogin(final String login) {
         Optional<User> user = userRepository.findByLogin(login);
+
+        if (user.isEmpty()) {
+            throw new NoSuchElementException("Unknow user with login [" + login + "]");
+        }
 
         return user.get();
     }
@@ -47,8 +55,9 @@ public class UserService implements UserDetailsService {
     public UserDAO changeUser(int id, UserDAO userDAO){
         
         Optional<User> theUser = userRepository.findById(id);
+
         if(theUser.isEmpty()){
-            throw new NoSuchElementException("Id not found");
+            throw new NoSuchElementException("Unknow user with ID [" + id + "]");
         }
 
         if(userDAO.getMail() != null){
@@ -75,12 +84,13 @@ public class UserService implements UserDetailsService {
     }
 
     @Override
-    public User loadUserByUsername(String s) throws UsernameNotFoundException {
-        Optional<User> optionalUser = userRepository.findByLogin(s);
-        optionalUser
-                .orElseThrow(() -> new UsernameNotFoundException("Login not found"));
+    public User loadUserByUsername(String username) throws UsernameNotFoundException {
+        Optional<User> optionalUser = userRepository.findByLogin(username);
+
+        optionalUser.orElseThrow(() -> new UsernameNotFoundException(username));
+
         return optionalUser
-                .map(user -> new User(user)).get();
+                .map(User::new).get();
     }
 
     public void deleteUser(int id) {
