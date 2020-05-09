@@ -27,37 +27,4 @@ public class CV {
     @Lob
     @Column(name="cvFile",columnDefinition = "BLOB",nullable = false)
     private List<Byte> cvFile;
-
-
-    public int getCvId() {
-        return cvId;
-    }
-
-    public void setCvId(int cvId) {
-        this.cvId = cvId;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public int getStatus() {
-        return status;
-    }
-
-    public void setStatus(int status) {
-        this.status = status;
-    }
-
-    public List<Byte> getCvFile() {
-        return cvFile;
-    }
-
-    public void setCvFile(List<Byte> cvFile) {
-        this.cvFile = cvFile;
-    }
 }

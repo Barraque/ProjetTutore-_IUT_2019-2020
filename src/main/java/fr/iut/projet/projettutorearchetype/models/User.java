@@ -1,11 +1,7 @@
 package fr.iut.projet.projettutorearchetype.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonView;
-import com.fasterxml.jackson.databind.util.EnumResolver;
-import lombok.Data;
-import org.hibernate.annotations.Cascade;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,12 +11,13 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Objects;
-import java.util.Set;
 import java.util.stream.Collectors;
 
-@Data
 @Table
 @Entity
+@Getter @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class User implements UserDetails {
 
     @Id
@@ -54,8 +51,6 @@ public class User implements UserDetails {
     @JoinColumn(name = "departmentNumber",nullable = false)
     private Department departmentNumber;// if -1 = admin
 
-    public User(){};
-
     public User(User user){
         this.login = user.login;
         this.password = user.password;
@@ -63,7 +58,6 @@ public class User implements UserDetails {
         this.lastname = user.lastname;
         this.mail = user.mail;
         this.role = user.role;
-        this.departmentNumber= user.departmentNumber;
         this.departmentNumber= user.departmentNumber;
     }
 
@@ -142,28 +136,8 @@ public class User implements UserDetails {
         return true;
     }
 
-    public int getUserId() {
-        return userId;
-    }
-
-    public String getLogin() {
-        return login;
-    }
-
-    public String getFirstname() {
-        return firstname;
-    }
-
-    public String getLastname() {
-        return lastname;
-    }
-
-    public String getMail() {
-        return mail;
-    }
-
     public Collection<RolesEnum> getRoles() {
-        ArrayList<RolesEnum> role = new ArrayList<RolesEnum>();
+        ArrayList<RolesEnum> role = new ArrayList<>();
         role.add(this.role);
         return role;
     }
@@ -180,42 +154,5 @@ public class User implements UserDetails {
             return false;
         User user = (User) o;
         return Objects.equals(userId, user.userId);
-    }
-
-
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
-    }
-
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
-    }
-
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
-    }
-
-    public void setMail(String mail) {
-        this.mail = mail;
-    }
-
-    public RolesEnum getRole() {
-        return role;
-    }
-
-    public void setRole(RolesEnum role) {
-        this.role = role;
-    }
-
-    public Department getDepartmentNumber() {
-        return departmentNumber;
-    }
-
-    public void setDepartmentNumber(Department departmentNumber) {
-        this.departmentNumber = departmentNumber;
     }
 }

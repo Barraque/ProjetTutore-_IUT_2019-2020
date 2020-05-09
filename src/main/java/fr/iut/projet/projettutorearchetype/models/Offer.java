@@ -30,29 +30,4 @@ public class Offer {
     @Lob
     @Column(name="offerFile",nullable = false)
     private byte[] offerFile;
-
-
-    public int getOfferId() {
-        return offerId;
-    }
-
-    public void setOfferId(int offerId) {
-        this.offerId = offerId;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public byte[] getOfferFile() {
-        return offerFile;
-    }
-
-    public void setOfferFile(byte[] offerFile) {
-        this.offerFile = offerFile;
-    }
 }

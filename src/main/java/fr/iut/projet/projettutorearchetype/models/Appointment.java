@@ -4,8 +4,6 @@ import lombok.Data;
 
 import javax.persistence.*;
 
-import static org.springframework.http.HttpHeaders.DATE;
-
 @Data
 @Table
 @Entity
@@ -29,46 +27,4 @@ public class Appointment {
 
     @Column(name="duration", nullable = false)
     private int duration;
-
-
-
-    public int getRdvId() {
-        return rdvId;
-    }
-
-    public void setRdvId(int rdvId) {
-        this.rdvId = rdvId;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public Offer getOffer() {
-        return offer;
-    }
-
-    public void setOffer(Offer offer) {
-        this.offer = offer;
-    }
-
-    public int getStartTime() {
-        return startTime;
-    }
-
-    public void setStartTime(int startTime) {
-        this.startTime = startTime;
-    }
-
-    public int getDuration() {
-        return duration;
-    }
-
-    public void setDuration(int duration) {
-        this.duration = duration;
-    }
 }
