@@ -1,5 +1,7 @@
 package fr.iut.projet.projettutorearchetype.exceptions;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -7,10 +9,23 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.server.MethodNotAllowedException;
 
+import java.nio.file.AccessDeniedException;
 import java.util.NoSuchElementException;
 
 @ControllerAdvice(value = "fr.iut.projet.projettutorearchetype.controller")
 public class GlobalExceptionHandler {
+
+    @Data
+    @AllArgsConstructor
+    public static class ResponseMessage {
+        private String title;
+        private String content;
+        private HttpStatus status;
+
+        public static ResponseEntity<ResponseMessage> build(String title, String content, HttpStatus status) {
+            return new ResponseEntity<ResponseMessage>(new ResponseMessage(title, content, status), status);
+        }
+    }
 
     /**
      * Transforme une exception "pas d'élément trouvé" en erreur 404
@@ -18,13 +33,10 @@ public class GlobalExceptionHandler {
      * @return ResponseEntity<String>
      */
     @ExceptionHandler(value = NoSuchElementException.class)
-    public ResponseEntity<String> handleNoSuchElementException(
+    public ResponseEntity<ResponseMessage> handleNoSuchElementException(
             final NoSuchElementException nsee
     ) {
-        return new ResponseEntity<>(
-                "Resource not found -> " + nsee.getMessage(),
-                HttpStatus.NOT_FOUND
-        );
+        return ResponseMessage.build("Resource not found", nsee.toString(), HttpStatus.NOT_FOUND);
     }
 
     /**
@@ -33,13 +45,10 @@ public class GlobalExceptionHandler {
      * @return ResponseEntity<String>
      */
     @ExceptionHandler(value = NullPointerException.class)
-    public ResponseEntity<String> handleNullPointerException(
+    public ResponseEntity<ResponseMessage> handleNullPointerException(
             final NullPointerException npe
     ) {
-        return new ResponseEntity<>(
-                "Resource on server failed : " + npe.getMessage(),
-                HttpStatus.INTERNAL_SERVER_ERROR
-        );
+        return ResponseMessage.build("Internal Server Error", "An error occurred that the server can't handle", HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     /**
@@ -48,13 +57,11 @@ public class GlobalExceptionHandler {
      * @return ResponseEntity<String>
      */
     @ExceptionHandler(value = MethodNotAllowedException.class)
-    public ResponseEntity<String> handleMethodNotAllowedException(
+    public ResponseEntity<ResponseMessage> handleMethodNotAllowedException(
             final MethodNotAllowedException mnae
     ) {
-        return new ResponseEntity<>(
-                "Method utilized is not permitted : " + mnae.getMessage(),
-                HttpStatus.METHOD_NOT_ALLOWED
-        );
+        String message = "[" + mnae.getHttpMethod() + "] not permitted";
+        return ResponseMessage.build("HTTP Method not permitted", message, HttpStatus.METHOD_NOT_ALLOWED);
     }
 
     /**
@@ -63,13 +70,10 @@ public class GlobalExceptionHandler {
      * @return ResponseEntity<String>
      */
     @ExceptionHandler(value = IllegalArgumentException.class)
-    public ResponseEntity<String> handleIllegalArgumentException(
+    public ResponseEntity<ResponseMessage> handleIllegalArgumentException(
             final IllegalArgumentException iae
     ) {
-        return new ResponseEntity<>(
-                "Illegal argument used : " + iae.getMessage(),
-                HttpStatus.BAD_REQUEST
-        );
+        return ResponseMessage.build("Internal Server Error", "An error occurred that the server can't handle", HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     /**
@@ -78,13 +82,10 @@ public class GlobalExceptionHandler {
      * @return ResponseEntity<String>
      */
     @ExceptionHandler(value = IllegalStateException.class)
-    public ResponseEntity<String> handleIllegalStateException(
+    public ResponseEntity<ResponseMessage> handleIllegalStateException(
             final IllegalStateException ise
     ) {
-        return new ResponseEntity<>(
-                "Illegal state used : " + ise.getMessage(),
-                HttpStatus.BAD_REQUEST
-        );
+        return ResponseMessage.build("Internal Server Error", "An error occurred that the server can't handle", HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
 
@@ -94,13 +95,11 @@ public class GlobalExceptionHandler {
      * @return ResponseEntity<String>
      */
     @ExceptionHandler(value = UsernameNotFoundException.class)
-    public ResponseEntity<String> handleUsernameNotFoundException(
+    public ResponseEntity<ResponseMessage> handleUsernameNotFoundException(
             final UsernameNotFoundException unfe
     ) {
-        return new ResponseEntity<>(
-                "Nom d'utilisateur non trouvé : [" + unfe.getMessage() + "]",
-                HttpStatus.NOT_FOUND
-        );
+        return ResponseMessage.build("Wrong username", "Provided username [" + unfe.getMessage() + "] doesn't exists", HttpStatus.NOT_FOUND);
+
     }
 
 }

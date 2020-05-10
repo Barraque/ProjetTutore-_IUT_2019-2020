@@ -43,11 +43,10 @@ public class UserController {
     }
 
     @GetMapping("{id}")
-    public UserDAO getuser(
+    public UserDAO retrieveUserById(
             @PathVariable(name = "id") int id
             ){
         User requestUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        System.out.println(requestUser.getLogin());
         User theUser = userService.getUser(id);
         if(!theUser.getLogin().equals(requestUser.getLogin()) && !(requestUser.getRoles().toArray()[0].equals(RolesEnum.DEPARTMENT_MANAGER))){
             throw new ForbiddenException();
@@ -56,7 +55,7 @@ public class UserController {
     }
 
     @GetMapping("me")
-    public UserDAO getMyUser(){
+    public UserDAO getConnectedUser(){
         User requestUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user = this.userService.getUserByLogin(requestUser.getLogin());
         return user.convertToUserDAO();

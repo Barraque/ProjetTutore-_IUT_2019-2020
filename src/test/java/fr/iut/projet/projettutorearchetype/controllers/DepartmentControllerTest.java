@@ -17,6 +17,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
@@ -38,6 +39,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @EnableWebMvc
 @WebMvcTest(DepartmentController.class)
+@ActiveProfiles(profiles = "test")
 public class DepartmentControllerTest {
 
     @Autowired
@@ -80,7 +82,7 @@ public class DepartmentControllerTest {
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
 
         String bodyJson = ow.writeValueAsString(goodDepartment);
-        String url = "/" + Constants.apiConstant + "department";
+        String url = "/department";
         String contentTypeUTF = "application/json;charset=UTF-8";
 
         MvcResult result = mockMvc.perform(post(url)
@@ -105,7 +107,7 @@ public class DepartmentControllerTest {
 
         Department badDepartment = new Department();
         String bodyJson = ow.writeValueAsString(badDepartment);
-        String url = "/" + Constants.apiConstant + "department";
+        String url = "/department";
         String contentTypeUTF = "application/json;charset=UTF-8";
 
         MvcResult result = mockMvc.perform(post(url)
@@ -123,7 +125,7 @@ public class DepartmentControllerTest {
 
     @Test
     public void getDepartment() throws Exception {
-        MvcResult result = mockMvc.perform(get("/"+Constants.apiConstant+"/department/1"))
+        MvcResult result = mockMvc.perform(get("/department/1"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andReturn();
@@ -134,7 +136,7 @@ public class DepartmentControllerTest {
 
     @Test
     public void getUnknownDepartment() throws Exception {
-        MvcResult result = mockMvc.perform(get("/"+Constants.apiConstant+"/department/2"))
+        MvcResult result = mockMvc.perform(get("/department/2"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andReturn();
@@ -145,7 +147,7 @@ public class DepartmentControllerTest {
 
     @Test
     public void getAllDepartments() throws Exception {
-        mockMvc.perform(get("/"+Constants.apiConstant+"/department/all"))
+        mockMvc.perform(get("/department/all"))
                 .andDo(print())
                 .andExpect(status().isOk());
     }

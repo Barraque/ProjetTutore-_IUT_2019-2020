@@ -17,6 +17,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
@@ -38,6 +39,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @EnableWebMvc
 @WebMvcTest(TagController.class)
+@ActiveProfiles(profiles = "test")
 public class TagControllerTest {
 
     @Autowired
@@ -80,7 +82,7 @@ public class TagControllerTest {
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
 
         String bodyJson = ow.writeValueAsString(goodTag);
-        String url = "/" + Constants.apiConstant + "tag";
+        String url = "/tag";
         String contentTypeUTF = "application/json;charset=UTF-8";
 
         MvcResult result = mockMvc.perform(post(url)
@@ -105,7 +107,7 @@ public class TagControllerTest {
 
         Tag badTag = new Tag();
         String bodyJson = ow.writeValueAsString(badTag);
-        String url = "/" + Constants.apiConstant + "tag";
+        String url = "/tag";
         String contentTypeUTF = "application/json;charset=UTF-8";
 
         MvcResult result = mockMvc.perform(post(url)
@@ -123,7 +125,7 @@ public class TagControllerTest {
 
     @Test
     public void getTag() throws Exception {
-        MvcResult result = mockMvc.perform(get("/"+Constants.apiConstant+"/tag/1"))
+        MvcResult result = mockMvc.perform(get("/tag/1"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andReturn();
@@ -134,7 +136,7 @@ public class TagControllerTest {
 
     @Test
     public void getUnknownTag() throws Exception {
-        MvcResult result = mockMvc.perform(get("/"+Constants.apiConstant+"/tag/2"))
+        MvcResult result = mockMvc.perform(get("/tag/2"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andReturn();
@@ -145,7 +147,7 @@ public class TagControllerTest {
 
     @Test
     public void getAllTags() throws Exception {
-        mockMvc.perform(get("/"+Constants.apiConstant+"/tag/all"))
+        mockMvc.perform(get("/tag/all"))
                 .andDo(print())
                 .andExpect(status().isOk());
     }

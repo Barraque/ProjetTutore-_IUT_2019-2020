@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import fr.iut.projet.projettutorearchetype.constants.Constants;
 import fr.iut.projet.projettutorearchetype.controller.OfferController;
+import fr.iut.projet.projettutorearchetype.jwt.AuthEntryPointJwt;
 import fr.iut.projet.projettutorearchetype.models.Offer;
 import fr.iut.projet.projettutorearchetype.services.OfferService;
 import fr.iut.projet.projettutorearchetype.services.UserService;
@@ -12,11 +13,13 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
@@ -37,11 +40,15 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ExtendWith(MockitoExtension.class)
 @RunWith(SpringRunner.class)
 @EnableWebMvc
+@ActiveProfiles(profiles = "test")
 @WebMvcTest(OfferController.class)
 public class OfferControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
+
+    @InjectMocks
+    private AuthEntryPointJwt authEntryPointJwt;
 
     @MockBean
     private OfferService offerService;
@@ -80,7 +87,7 @@ public class OfferControllerTest {
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
 
         String bodyJson = ow.writeValueAsString(goodOffer);
-        String url = "/" + Constants.apiConstant + "offer";
+        String url = "/offer";
         String contentTypeUTF = "application/json;charset=UTF-8";
 
         MvcResult result = mockMvc.perform(post(url)
@@ -105,7 +112,7 @@ public class OfferControllerTest {
 
         Offer badOffer = new Offer();
         String bodyJson = ow.writeValueAsString(badOffer);
-        String url = "/" + Constants.apiConstant + "offer";
+        String url = "/offer";
         String contentTypeUTF = "application/json;charset=UTF-8";
 
         MvcResult result = mockMvc.perform(post(url)
@@ -123,7 +130,7 @@ public class OfferControllerTest {
 
     @Test
     public void getOffer() throws Exception {
-        MvcResult result = mockMvc.perform(get("/"+Constants.apiConstant+"/offer/1"))
+        MvcResult result = mockMvc.perform(get("/offer/1"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andReturn();
@@ -134,7 +141,7 @@ public class OfferControllerTest {
 
     @Test
     public void getUnknownOffer() throws Exception {
-        MvcResult result = mockMvc.perform(get("/"+Constants.apiConstant+"/offer/2"))
+        MvcResult result = mockMvc.perform(get("/offer/2"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andReturn();
@@ -145,7 +152,7 @@ public class OfferControllerTest {
 
     @Test
     public void getAllOffers() throws Exception {
-        mockMvc.perform(get("/"+Constants.apiConstant+"/offer/all"))
+        mockMvc.perform(get("/offer/all"))
                 .andDo(print())
                 .andExpect(status().isOk());
     }
