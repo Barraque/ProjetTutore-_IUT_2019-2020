@@ -73,7 +73,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ResponseMessage> handleIllegalArgumentException(
             final IllegalArgumentException iae
     ) {
-        return ResponseMessage.build("Internal Server Error", "An error occurred that the server can't handle", HttpStatus.INTERNAL_SERVER_ERROR);
+        return ResponseMessage.build("Internal Server Error", "An error occurred that the server can't handle", HttpStatus.NOT_FOUND);
     }
 
     /**

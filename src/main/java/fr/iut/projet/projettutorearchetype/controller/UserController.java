@@ -27,7 +27,7 @@ public class UserController {
         User requestUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user = new User(userdao);
 
-        if(!(requestUser.getRoles().toArray()[0].equals(RolesEnum.DEPARTMENT_MANAGER))){
+        if(!(requestUser.getRoles().toArray()[0].equals(RolesEnum.DEPARTMENT_MANAGER) || requestUser.getRoles().toArray()[0].equals(RolesEnum.ADMINISTRATOR))){
             throw new ForbiddenException();
         }
 
