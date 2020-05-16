@@ -25,6 +25,6 @@ public class CV {
     private int status;
 
     @Lob
-    @Column(name="cvFile",columnDefinition = "BLOB",nullable = false)
-    private List<Byte> cvFile;
+    @Column(name="cvFile",columnDefinition = "LONGBLOB",nullable = false, length = 10000000)
+    private byte[] cvFile;
 }

@@ -48,7 +48,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ResponseMessage> handleNullPointerException(
             final NullPointerException npe
     ) {
-        return ResponseMessage.build("Internal Server Error", "An error occurred that the server can't handle", HttpStatus.INTERNAL_SERVER_ERROR);
+        return ResponseMessage.build("Internal Server Error", "An error occurred that the server can't handle [" + npe.getMessage() + "]", HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     /**
@@ -73,7 +73,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ResponseMessage> handleIllegalArgumentException(
             final IllegalArgumentException iae
     ) {
-        return ResponseMessage.build("Internal Server Error", "An error occurred that the server can't handle", HttpStatus.NOT_FOUND);
+        return ResponseMessage.build("Internal Server Error", "An error occurred that the server can't handle [" + iae.getMessage() + "]", HttpStatus.NOT_FOUND);
     }
 
     /**
@@ -85,7 +85,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ResponseMessage> handleIllegalStateException(
             final IllegalStateException ise
     ) {
-        return ResponseMessage.build("Internal Server Error", "An error occurred that the server can't handle", HttpStatus.INTERNAL_SERVER_ERROR);
+        return ResponseMessage.build("Internal Server Error", "An error occurred that the server can't handle [" + ise.getMessage() + "]", HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
 

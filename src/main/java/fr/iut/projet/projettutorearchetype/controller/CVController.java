@@ -2,6 +2,8 @@ package fr.iut.projet.projettutorearchetype.controller;
 
 import fr.iut.projet.projettutorearchetype.models.CV;
 import fr.iut.projet.projettutorearchetype.services.CVService;
+import lombok.extern.slf4j.Slf4j;
+import lombok.extern.slf4j.XSlf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,6 +12,7 @@ import java.util.List;
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("cv")
+@Slf4j
 public class CVController {
 
     @Autowired
