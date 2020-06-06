@@ -1,7 +1,5 @@
 package fr.iut.projet.projettutorearchetype.exceptions;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -9,23 +7,10 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.server.MethodNotAllowedException;
 
-import java.nio.file.AccessDeniedException;
 import java.util.NoSuchElementException;
 
 @ControllerAdvice(value = "fr.iut.projet.projettutorearchetype.controller")
-public class GlobalExceptionHandler {
-
-    @Data
-    @AllArgsConstructor
-    public static class ResponseMessage {
-        private String title;
-        private String content;
-        private HttpStatus status;
-
-        public static ResponseEntity<ResponseMessage> build(String title, String content, HttpStatus status) {
-            return new ResponseEntity<ResponseMessage>(new ResponseMessage(title, content, status), status);
-        }
-    }
+public class ExceptionsHandler {
 
     /**
      * Transforme une exception "pas d'élément trouvé" en erreur 404

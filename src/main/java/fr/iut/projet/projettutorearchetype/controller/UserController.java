@@ -1,6 +1,6 @@
 package fr.iut.projet.projettutorearchetype.controller;
 
-import fr.iut.projet.projettutorearchetype.Exceptions.ForbiddenException;
+import fr.iut.projet.projettutorearchetype.exceptions.ForbiddenException;
 import fr.iut.projet.projettutorearchetype.models.RolesEnum;
 import fr.iut.projet.projettutorearchetype.models.User;
 import fr.iut.projet.projettutorearchetype.models.UserDAO;
@@ -10,7 +10,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @CrossOrigin(origins = "*")

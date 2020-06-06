@@ -1,4 +1,4 @@
-package fr.iut.projet.projettutorearchetype.Exceptions;
+package fr.iut.projet.projettutorearchetype.exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
