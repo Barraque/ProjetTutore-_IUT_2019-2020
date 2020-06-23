@@ -1,5 +1,6 @@
 package fr.iut.projet.projettutorearchetype.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -8,16 +9,14 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.util.StringUtils;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Table
 @Entity
 @Getter @Setter
-@NoArgsConstructor
 @AllArgsConstructor
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "tags"})
 public class User implements UserDetails {
 
     @Id
@@ -48,8 +47,20 @@ public class User implements UserDetails {
     private int firstConnection;
 
     @ManyToOne
-    @JoinColumn(name = "departmentNumber",nullable = false)
+    @JoinColumn(name = "departmentNumber")
     private Department departmentNumber;// if -1 = admin
+
+    @ManyToMany
+    @JoinTable(
+            name = "tags_students",
+            joinColumns = @JoinColumn(name = "userId"),
+            inverseJoinColumns = @JoinColumn(name = "tagId"))
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private List<Tag> tags;
+
+    public User() {
+
+    }
 
     public User(User user){
         this.login = user.login;

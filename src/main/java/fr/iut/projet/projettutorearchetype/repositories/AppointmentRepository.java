@@ -10,6 +10,6 @@ import java.util.Optional;
 
 @Repository
 public interface AppointmentRepository extends JpaRepository<Appointment,Integer> {
-    List<Appointment> findAllByUser_login(String userLogin);
-    List<Appointment> findAllByUser_userId(int userId);
+    //List<Appointment> findAllByUser_login(String userLogin);
+    //List<Appointment> findAllByUser_userId(int userId);
 }

@@ -1,6 +1,5 @@
 package fr.iut.projet.projettutorearchetype.controller;
 
-import fr.iut.projet.projettutorearchetype.constants.Constants;
 import fr.iut.projet.projettutorearchetype.models.Tag;
 import fr.iut.projet.projettutorearchetype.services.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,9 +19,6 @@ public class TagController {
     public Tag addTag(
             @RequestBody Tag tag
     ){
-        if (tag != null){
-            System.out.println(tag.toString());
-        }
         return tagService.addTag(tag);
     } 
 
@@ -38,7 +34,4 @@ public class TagController {
     ){
         return tagService.getTag(id);
     }
-
-
-
 }

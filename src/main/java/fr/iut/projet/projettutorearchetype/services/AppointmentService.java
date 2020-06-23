@@ -33,11 +33,12 @@ public class AppointmentService {
         return  appointmentRepository.findAll();
     }
 
-    public List<Appointment> getAllAppointmentFromUserID(final int userId){
+   /* public List<Appointment> getAllAppointmentFromUserID(final int userId){
         return appointmentRepository.findAllByUser_userId(userId);
     }
 
     public List<Appointment> getAllAppointmentFromUserLogin(final String userLogin){
         return appointmentRepository.findAllByUser_login(userLogin);
-    };
+    };*/
+
 }

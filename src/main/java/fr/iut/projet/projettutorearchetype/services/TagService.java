@@ -6,10 +6,7 @@ import fr.iut.projet.projettutorearchetype.repositories.TagRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class TagService {
@@ -33,6 +30,13 @@ public class TagService {
 
     public List<Tag> getAllTags() {
         return tagRepository.findAll();
+    }
+
+    public void fillTagList(ArrayList<Tag> tags) {
+        for (int i = 0; i < tags.size(); i++) {
+            Tag requestedTag = this.tagRepository.getOne(tags.get(i).getTagId());
+            tags.set(i, requestedTag);
+        }
     }
 
 }

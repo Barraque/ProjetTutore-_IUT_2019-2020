@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Configuration;
 public class ServerApplication {
 
     public static void main(String[] args) {
+        System.out.println("Server starting...");
         SpringApplication.run(ServerApplication.class, args);
     }
 

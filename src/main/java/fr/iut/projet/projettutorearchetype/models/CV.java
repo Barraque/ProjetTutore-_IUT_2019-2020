@@ -20,7 +20,6 @@ public class CV {
     @JoinColumn(name = "user", referencedColumnName = "userId")
     private User user;
 
-
     @Column(name="status",length = 255,nullable = false)
     private int status;
 

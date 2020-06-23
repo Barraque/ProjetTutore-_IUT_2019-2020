@@ -51,4 +51,21 @@ public class CVService {
         }
         return cv.get();
     }
+
+    public CV approveCv(CV cv) {
+        cv.setStatus(2);
+        return this.cvRepository.save(cv);
+    }
+
+    public CV rejectCv(CV cv) {
+        cv.setStatus(1);
+        return this.cvRepository.save(cv);
+    }
+
+    public CV patchCvFile(CV original, byte[] patched) {
+        original.setCvFile(patched);
+        original.setStatus(0);
+        this.cvRepository.save(original);
+        return original;
+    }
 }

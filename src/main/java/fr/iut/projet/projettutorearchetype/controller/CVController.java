@@ -37,10 +37,36 @@ public class CVController {
         return cvService.getCV(id);
     }
 
+    @PatchMapping("{id}")
+    public CV patchCv(
+            @RequestBody byte[] cv,
+            @PathVariable int id
+    ){
+        CV originalCv = this.cvService.getCV(id);
+        return cvService.patchCvFile(originalCv, cv);
+    }
+
     @GetMapping("user/{id}")
     public CV findByUser_userId(
             @PathVariable int id
     ){
         return cvService.getCvOfUserFromUserId(id);
+    }
+
+    @PatchMapping("{id}/approve")
+    public CV approveCv(
+            @PathVariable int id
+    ){
+        System.out.println("approving");
+        CV cv = this.cvService.getCV(id);
+        return cvService.approveCv(cv);
+    }
+
+    @PatchMapping("{id}/reject")
+    public CV rejectCv(
+            @PathVariable int id
+    ){
+        CV cv = this.cvService.getCV(id);
+        return cvService.rejectCv(cv);
     }
 }

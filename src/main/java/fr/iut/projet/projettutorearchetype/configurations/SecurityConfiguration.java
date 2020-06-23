@@ -49,7 +49,8 @@ class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         "/configuration/security",
                         "/swagger-ui.html",
                         "/webjars/**").permitAll()
-                .antMatchers("/tag/*").hasAnyAuthority("ADMINISTRATOR")
+                .antMatchers("/tag/*").hasAnyAuthority("ADMINISTRATOR", "DEPARTMENT_MANAGER")
+                .antMatchers("/users/{\\\\d+}/tags").hasAnyAuthority("ADMINISTRATOR", "DEPARTMENT_MANAGER", "APPRENTICESHIP_MANAGER", "STUDENT")
                 .anyRequest().authenticated();
 
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);

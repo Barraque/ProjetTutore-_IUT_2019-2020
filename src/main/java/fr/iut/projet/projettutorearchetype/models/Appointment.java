@@ -25,6 +25,6 @@ public class Appointment {
     @Column(name="startTime", nullable = false)
     private int startTime;
 
-    @Column(name="duration", nullable = false)
+    @Column(name="duration")
     private int duration;
 }

@@ -1,5 +1,7 @@
 package fr.iut.projet.projettutorearchetype.services;
 
+import fr.iut.projet.projettutorearchetype.models.RolesEnum;
+import fr.iut.projet.projettutorearchetype.models.Tag;
 import fr.iut.projet.projettutorearchetype.models.User;
 import fr.iut.projet.projettutorearchetype.models.UserDAO;
 import fr.iut.projet.projettutorearchetype.repositories.UserRepository;
@@ -9,15 +11,16 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class UserService implements UserDetailsService {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    TagService tagService;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -95,5 +98,53 @@ public class UserService implements UserDetailsService {
 
     public void deleteUser(int id) {
         userRepository.deleteById(id);
+    }
+
+
+    public List<Tag> getUserTags(final int userId) {
+        Optional<User> user = userRepository.findById(userId);
+
+        if (user.isEmpty()) {
+            throw new NoSuchElementException("Unknown user with ID [" + userId + "]");
+        }
+
+        return user.get().getTags();
+    }
+
+    public User addTagsToUser(int userId, ArrayList<Tag> tags) {
+
+        tagService.fillTagList(tags);
+
+        User user = this.userRepository.getOne(userId);
+
+        List<Tag> userTags = user.getTags();
+        userTags.clear();
+        userTags.addAll(tags);
+        user.setTags(userTags);
+
+        return this.userRepository.save(user);
+    }
+    public List<User> filter(Integer department, Integer roleId, String firstname, String lastname, String username) {
+        if (firstname == null) {
+            firstname = "";
+        }
+        if (lastname == null) {
+            lastname = "";
+        }
+        if (username == null) {
+            username = "";
+        }
+
+        if (department != null && department > 0 && roleId != null) {
+            RolesEnum role = RolesEnum.values()[roleId];
+            return this.userRepository.findAllByFirstnameContainsAndLastnameContainsAndLoginContainsAndRoleAndDepartmentNumber_DepartmentId(firstname, lastname, username, role, department);
+        } else if (department != null && department > 0) {
+            return this.userRepository.findAllByFirstnameContainsAndLastnameContainsAndLoginContainsAndDepartmentNumber_DepartmentId(firstname, lastname, username, department);
+        } else if (roleId != null) {
+            RolesEnum role = RolesEnum.values()[roleId];
+            return this.userRepository.findAllByFirstnameContainsAndLastnameContainsAndLoginContainsAndRole(firstname, lastname, username, role);
+        }
+
+        return this.userRepository.findAllByFirstnameContainsAndLastnameContainsAndLoginContains(firstname, lastname, username);
     }
 }
